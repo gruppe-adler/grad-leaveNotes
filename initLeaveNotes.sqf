@@ -3,8 +3,6 @@
 *   needs to be executed on both server and clients
 */
 
-/*(([player, [], ["ACE_SelfActions", "GRAD_leaveNotes_myNotesMain"], 0] call ace_interact_menu_fnc_collectActiveActionTree) select 1)*/
-
 #define ISPUBLIC true
 #define FILEPATH GRAD_leaveNotes_filePath
 
@@ -33,17 +31,21 @@ GRAD_core_getFileDirectory = {
 FILEPATH = [__FILE__, worldname] call GRAD_core_getFileDirectory;
 
 //CONFIG VALUES (YOU CAN CHANGE THESE!) ========================================
-#define CANWRITENOTES true
-#define NOTEDISTANCETOPLAYER 1
-#define CLASS_NOTE "Land_Notepad_F"
-#define ACTION_PIC_WRITE ""
-#define ACTION_PIC_READ ""
-#define ACTION_PIC_TAKE ""
-#define ACTION_PIC_LEAVENOTE ""
-#define ACTION_PIC_DESTROY ""
-#define ACTION_PIC_MYNOTES ""
-#define ACTION_OFFSET [0,0,0.1]
-#define ACTION_DISTANCE 2
+#ifndef LEAVENOTES_CANWRITENOTES
+  #define LEAVENOTES_CANWRITENOTES true                                         //condition to be able to write notes
+  #define LEAVENOTES_UNLIMITED true                                             //can write unlimited amount of notes
+  #define LEAVENOTES_AMOUNT 10                                                  //amount of notes per player (irrelevant if LEAVENOTES_UNLIMITED)
+  #define LEAVENOTES_PLAYERDIST 1                                               //distance to player that notes will be dropped
+  #define LEAVENOTES_CLASS "Land_Notepad_F"                                     //note object class name
+  #define LEAVENOTES_ACTPIC_WRITE ""
+  #define LEAVENOTES_ACTPIC_READ ""
+  #define LEAVENOTES_ACTPIC_TAKE ""
+  #define LEAVENOTES_ACTPIC_DROP ""
+  #define LEAVENOTES_ACTPIC_DESTROY ""
+  #define LEAVENOTES_ACTPIC_MYNOTES ""
+  #define LEAVENOTES_ACTOFFSET [0,0,0.1]
+  #define LEAVENOTES_ACTDIST 2
+#endif
 //==============================================================================
 
 
@@ -56,17 +58,20 @@ GRAD_leaveNotes_initialized = true;
 [] call compile preprocessFileLineNumbers (FILEPATH + "UI\leaveNotes_uiFunctions.sqf");
 
 //add ACE-Selfinteraction
-if (CANWRITENOTES) then {
-  _action = ["GRAD_leaveNotes_mainAction", "Notes", ACTION_PIC_MYNOTES, {}, {true}] call ace_interact_menu_fnc_createAction;
+if (LEAVENOTES_CANWRITENOTES) then {
+  player setVariable ["GRAD_leaveNotes_amount", LEAVENOTES_AMOUNT];
+
+  _action = ["GRAD_leaveNotes_mainAction", "Notes", LEAVENOTES_ACTPIC_MYNOTES, {}, {true}] call ace_interact_menu_fnc_createAction;
   [player, 1, ["ACE_SelfActions"], _action] call ace_interact_menu_fnc_addActionToObject;
 
-  _action = ["GRAD_leaveNotes_writeNote", "Write note", ACTION_PIC_WRITE, {[] call GRAD_leaveNotes_fnc_writeNote}, {true}] call ace_interact_menu_fnc_createAction;
+  _action = ["GRAD_leaveNotes_writeNote", "Write note", LEAVENOTES_ACTPIC_WRITE, {[] call GRAD_leaveNotes_fnc_writeNote}, {true}] call ace_interact_menu_fnc_createAction;
   [player, 1, ["ACE_SelfActions", "GRAD_leaveNotes_mainAction"], _action] call ace_interact_menu_fnc_addActionToObject;
 };
 
 
 //WRITE NOTE ===================================================================
 GRAD_leaveNotes_fnc_writeNote = {
+  if (!LEAVENOTES_UNLIMITED && (player getVariable ["GRAD_leaveNotes_amount", 0 ]) <= 0) exitWith {hint "Ich habe kein Papier mehr."};
   ["WRITE"] execVM (FILEPATH + "UI\leaveNotes_loadUI.sqf");
 };
 
@@ -75,8 +80,8 @@ GRAD_leaveNotes_fnc_dropNote = {
   params ["_message"];
   if (surfaceIsWater getPos player) exitWith {hint "Ich kann im Wasser keine Notiz hinterlassen."};
 
-  _notePos = player getRelPos [NOTEDISTANCETOPLAYER, 0];
-  [_notePos, _message] remoteExec ["GRAD_leaveNotes_fnc_spawnNote", 2, false];
+  _notePos = player getRelPos [LEAVENOTES_PLAYERDIST, 0];
+  [_notePos, (getDir player)-90, _message] remoteExec ["GRAD_leaveNotes_fnc_spawnNote", 2, false];
 };
 
 //INIT NOTE ====================================================================
@@ -87,16 +92,16 @@ GRAD_leaveNotes_fnc_initNote = {
   if (isNull _note) exitWith {};
 
   //add ACE-actions
-  _action = ["GRAD_leaveNotes_mainActionGround", "Interactions", "", {}, {true}, {}, [], ACTION_OFFSET, ACTION_DISTANCE] call ace_interact_menu_fnc_createAction;
+  _action = ["GRAD_leaveNotes_mainActionGround", "Interactions", "", {}, {true}, {}, [], LEAVENOTES_ACTOFFSET, LEAVENOTES_ACTDIST] call ace_interact_menu_fnc_createAction;
   [_note, 0, [], _action] call ace_interact_menu_fnc_addActionToObject;
 
-  _action = ["GRAD_leaveNotes_readNoteGround", "Read note", ACTION_PIC_READ, {[(_this select 0) getVariable ["message", ""], (_this select 0)] call GRAD_leaveNotes_fnc_readNote}, {true}] call ace_interact_menu_fnc_createAction;
+  _action = ["GRAD_leaveNotes_readNoteGround", "Read note", LEAVENOTES_ACTPIC_READ, {[(_this select 0) getVariable ["message", ""], (_this select 0)] call GRAD_leaveNotes_fnc_readNote}, {true}] call ace_interact_menu_fnc_createAction;
   [_note, 0, ["GRAD_leaveNotes_mainActionGround"], _action] call ace_interact_menu_fnc_addActionToObject;
 
-  _action = ["GRAD_leaveNotes_takeNoteGround", "Take note", ACTION_PIC_TAKE, {[_this select 0] call GRAD_leaveNotes_fnc_takeNote}, {true}] call ace_interact_menu_fnc_createAction;
+  _action = ["GRAD_leaveNotes_takeNoteGround", "Take note", LEAVENOTES_ACTPIC_TAKE, {[_this select 0] call GRAD_leaveNotes_fnc_takeNote}, {true}] call ace_interact_menu_fnc_createAction;
   [_note, 0, ["GRAD_leaveNotes_mainActionGround"], _action] call ace_interact_menu_fnc_addActionToObject;
 
-  _action = ["GRAD_leaveNotes_destroyNoteGround", "Destroy note", ACTION_PIC_DESTROY, {[_this select 0] call GRAD_leaveNotes_fnc_destroyNote}, {true}] call ace_interact_menu_fnc_createAction;
+  _action = ["GRAD_leaveNotes_destroyNoteGround", "Destroy note", LEAVENOTES_ACTPIC_DESTROY, {[_this select 0] call GRAD_leaveNotes_fnc_destroyNote}, {true}] call ace_interact_menu_fnc_createAction;
   [_note, 0, ["GRAD_leaveNotes_mainActionGround"], _action] call ace_interact_menu_fnc_addActionToObject;
 };
 
@@ -120,6 +125,43 @@ GRAD_leaveNotes_fnc_takeNote = {
   player setVariable ["GRAD_leaveNotes_notesHandled", (player getVariable ["GRAD_leaveNotes_notesHandled", 0]) + 1];
 };
 
+//GENERATE NOTE NAME ===========================================================
+GRAD_leaveNotes_fnc_generateName = {
+  params ["_message"];
+  if (_message == "") exitWith {_name = "Empty Note"; _name};
+
+  _maxChars = 10;
+  _name = "";
+  _done = false;
+  _words = _message splitString " ";
+
+  //add first word
+  if (count (_words select 0) < _maxChars) then {
+    _name = _name + (_words select 0);
+
+  //first word is too big
+  } else {
+    _firstWordArray = toArray (_words select 0);
+    _firstWordArray resize _maxChars;
+    _name = toString _firstWordArray;
+    _name = _name + "...";
+  };
+  if (count _name >= _maxChars) exitWith {_name};
+
+  //add more words
+  for [{_i = 1}, {_i < count _words}, {_i = _i + 1}] do {
+    _word = _words select _i;
+    if (count _name + count _word < _maxChars) then {
+      _name = _name + " " + _word;
+    } else {
+      _name = _name + "...";
+      _done = true;
+    };
+    if (_done) exitWith {};
+  };
+  _name
+};
+
 //UPDATE MY NOTES ==============================================================
 GRAD_leaveNotes_fnc_updateMyNotes = {
   if (!hasInterface) exitWith {};
@@ -140,7 +182,7 @@ GRAD_leaveNotes_fnc_updateMyNotes = {
     [player,1,["ACE_SelfActions", "GRAD_leaveNotes_mainAction", _nodeName]] call ace_interact_menu_fnc_removeActionFromObject;
 
     //remove main node
-    if (!CANWRITENOTES && (player getVariable ["GRAD_leaveNotes_notesInInventory", 0]) == 0) then {
+    if (!LEAVENOTES_CANWRITENOTES && (player getVariable ["GRAD_leaveNotes_notesInInventory", 0]) == 0) then {
       [player,1,["ACE_SelfActions", "GRAD_leaveNotes_mainAction"]] call ace_interact_menu_fnc_removeActionFromObject;
     };
   };
@@ -152,32 +194,32 @@ GRAD_leaveNotes_fnc_updateMyNotes = {
     player setVariable [_nodeName + "_message", _message];
 
     //add main node on first note
-    if (!CANWRITENOTES && (player getVariable ["GRAD_leaveNotes_notesInInventory", 0]) == 1) then {
-      _action = ["GRAD_leaveNotes_mainAction", "My notes", ACTION_PIC_MYNOTES, {}, {true}] call ace_interact_menu_fnc_createAction;
+    if (!LEAVENOTES_CANWRITENOTES && (player getVariable ["GRAD_leaveNotes_notesInInventory", 0]) == 1) then {
+      _action = ["GRAD_leaveNotes_mainAction", "My notes", LEAVENOTES_ACTPIC_MYNOTES, {}, {true}] call ace_interact_menu_fnc_createAction;
       [player, 1, ["ACE_SelfActions"], _action] call ace_interact_menu_fnc_addActionToObject;
     };
 
     //node
-    _actionDisplayText = format ["Note %1", _noteID];
+    _actionDisplayText = [_message] call GRAD_leaveNotes_fnc_generateName;
     _action = [_nodeName, _actionDisplayText, "", {true}, {true}] call ace_interact_menu_fnc_createAction;
     [player, 1, ["ACE_SelfActions", "GRAD_leaveNotes_mainAction"], _action] call ace_interact_menu_fnc_addActionToObject;
 
     //read
     _readactionName = _nodeName + "_read";
     _readAction = compile format ["[player getVariable ['GRAD_leaveNotes_myNotes_%1_message', ''], %1] call GRAD_leaveNotes_fnc_readNote", _noteID];
-    _action = [_readactionName, "Read note", ACTION_PIC_READ, _readAction, {true}] call ace_interact_menu_fnc_createAction;
+    _action = [_readactionName, "Read Note", LEAVENOTES_ACTPIC_READ, _readAction, {true}] call ace_interact_menu_fnc_createAction;
     [player, 1, ["ACE_SelfActions", "GRAD_leaveNotes_mainAction", _nodeName], _action] call ace_interact_menu_fnc_addActionToObject;
 
     //drop
     _dropactionName = _nodeName + "_drop";
     _dropAction = compile format ["[player getVariable ['GRAD_leaveNotes_myNotes_%1_message', '']] call GRAD_leaveNotes_fnc_dropNote; [%1, 'remove'] call GRAD_leaveNotes_fnc_updateMyNotes", _noteID];
-    _action = [_dropactionName, "Drop note", ACTION_PIC_LEAVENOTE, _dropAction, {true}] call ace_interact_menu_fnc_createAction;
+    _action = [_dropactionName, "Drop Note", LEAVENOTES_ACTPIC_DROP, _dropAction, {true}] call ace_interact_menu_fnc_createAction;
     [player, 1, ["ACE_SelfActions", "GRAD_leaveNotes_mainAction", _nodeName], _action] call ace_interact_menu_fnc_addActionToObject;
 
     //destroy
     _destroyactionName = _nodeName + "_destroy";
     _destroyAction = compile format ["[%1, 'remove'] call GRAD_leaveNotes_fnc_updateMyNotes", _noteID];
-    _action = [_destroyactionName, "Destroy note", ACTION_PIC_DESTROY, _destroyAction, {true}] call ace_interact_menu_fnc_createAction;
+    _action = [_destroyactionName, "Destroy Note", LEAVENOTES_ACTPIC_DESTROY, _destroyAction, {true}] call ace_interact_menu_fnc_createAction;
     [player, 1, ["ACE_SelfActions", "GRAD_leaveNotes_mainAction", _nodeName], _action] call ace_interact_menu_fnc_addActionToObject;
   };
 };
@@ -201,11 +243,12 @@ GRAD_leaveNotes_fnc_destroyNote = {
 
 //SPAWN NOTE ===================================================================
 GRAD_leaveNotes_fnc_spawnNote = {
-  params ["_requestedPos", "_message"];
+  params ["_requestedPos", "_requestedDir", "_message"];
 
-  _note = createVehicle [CLASS_NOTE, _requestedPos, [], 0, "NONE"];
+  _note = createVehicle [LEAVENOTES_CLASS, _requestedPos, [], 0, "NONE"];
   _note setPos _requestedPos;
   _note setVectorUp surfaceNormal _requestedPos;
+  _note setDir _requestedDir;
 
   _note setVariable ["message", _message, true];
 

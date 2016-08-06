@@ -4,7 +4,7 @@ class lnUIBack
 {
   idc = -1;
   type = CT_STATIC;
-	style = ST_PICTURE;
+	style = ST_HUD_BACKGROUND;
 	text = "";
 	colorText[] = {1, 1, 1, 1};
 	font = "PuristaMedium";
@@ -34,9 +34,9 @@ class lnText
   w = 0.1;
   h = 0.05;
   font = "TahomaB";
-  sizeEx = 0.04;
+  sizeEx = 0.0465;
   colorBackground[] = {0,0,0,0};
-  colorText[] = {1,1,1,1};
+  colorText[] = {0,0,0,1};
   text = "";
   fixedWidth = 0;
   shadow = 0;

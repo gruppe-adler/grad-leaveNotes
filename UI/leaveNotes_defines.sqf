@@ -1,6 +1,7 @@
 //IDCs =========================================================================
 #define LN_DIALOG 6000
 #define LN_TITLE 6010
+#define LN_NOTEPAD 6020
 #define LN_BUTTON1 6100
 #define LN_BUTTON2 6200
 #define LN_EDITBOX 6300
@@ -24,7 +25,7 @@
 //COORDS AND DIMENSIONS ========================================================
 #define lnButton_textSize (0.04 * TEXT_SCALE)
 #define lnTotal_W (0.4 * X_SCALE)
-#define lnTotal_H (0.6 * Y_SCALE)
+#define lnTotal_H (0.65 * Y_SCALE)
 #define lnTotal_X CENTER(1, lnTotal_W)
 #define lnTotal_Y CENTER(1, lnTotal_H)
 

@@ -1,3 +1,7 @@
+/*  Functions that are called by UI controls
+*
+*/
+
 #include "leaveNotes_defines.sqf";
 
 //WRITE-MODE ===================================================================
@@ -7,6 +11,7 @@ GRAD_leaveNotes_fnc_uiDrop = {
   _editBox = _dialog displayCtrl LN_EDITBOX;
   _message = ctrlText _editBox;
   [_message] call GRAD_leaveNotes_fnc_dropNote;
+  player setVariable ["GRAD_leaveNotes_amount", (player getVariable ["GRAD_leaveNotes_amount", 1]) - 1];
 };
 
 GRAD_leaveNotes_fnc_uiSave = {
@@ -16,6 +21,7 @@ GRAD_leaveNotes_fnc_uiSave = {
   _message = ctrlText _editBox;
   [(player getVariable ["GRAD_leaveNotes_notesHandled", 0]) + 1, "add", _message] call GRAD_leaveNotes_fnc_updateMyNotes;
   player setVariable ["GRAD_leaveNotes_notesHandled", (player getVariable ["GRAD_leaveNotes_notesHandled", 0]) + 1];
+  player setVariable ["GRAD_leaveNotes_amount", (player getVariable ["GRAD_leaveNotes_amount", 1]) - 1];
 };
 
 //READ-MODE ====================================================================

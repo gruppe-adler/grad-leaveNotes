@@ -20,7 +20,18 @@ class leaveNotes_UI
       y = lnBG_Y;
       w = lnTotal_W;
       h = lnBG_H;
-      text = "UI\pic\notepad.paa";
+    };
+
+    class Notepad: lnUIBack
+    {
+      idc = LN_NOTEPAD;
+
+      x = lnBG_X + lnSpacing_X;
+      y = lnBG_Y + lnSpacing_Y;
+      w = lnTotal_W - (2 * lnSpacing_X);
+      h = lnBG_H - (3 * lnSpacing_Y + lnButton_H);
+
+      style = ST_PICTURE;
     };
 
     class TopBar: lnUIBack
@@ -53,7 +64,7 @@ class leaveNotes_UI
     {
       idc = LN_BUTTON1;
 
-      x = (lnTotal_X + lnTotal_W) - (lnPadding_X + 2*lnButton_W + lnSpacing_X);
+      x = (lnTotal_X + lnTotal_W) - (2*lnButton_W + 2*lnSpacing_X);
       y = (lnTotal_Y + lnTotal_H) - (lnSpacing_Y + lnButton_H);
       w = lnButton_W;
       h = lnButton_H;
@@ -63,7 +74,7 @@ class leaveNotes_UI
     {
       idc = LN_BUTTON2;
 
-      x = (lnTotal_X + lnTotal_W) - (lnPadding_X + lnButton_W);
+      x = (lnTotal_X + lnTotal_W) - (lnButton_W + lnSpacing_X);
       y = (lnTotal_Y + lnTotal_H) - (lnSpacing_Y + lnButton_H);
       w = lnButton_W;
       h = lnButton_H;
@@ -77,6 +88,7 @@ class leaveNotes_write: leaveNotes_UI
   class ControlsBackground: ControlsBackground
   {
     class MainBackground: MainBackground {};
+    class Notepad: Notepad {};
 
     class TopBar: TopBar
     {
@@ -90,9 +102,9 @@ class leaveNotes_write: leaveNotes_UI
     {
       idc = LN_EDITBOX;
       x = lnTotal_X + lnPadding_X;
-      y = lnBG_Y + lnPadding_Y;
+      y = lnBG_Y + 1.14*lnPadding_Y + lnButton_H;
       w = lnTotal_W - lnPadding_X - lnPadding_X;
-      h = lnBG_H - lnPadding_Y - (2*lnSpacing_Y + lnButton_H);
+      h = lnBG_H - 1.14*lnPadding_Y - (2*lnSpacing_Y + 3*lnButton_H);
     };
 
     class CloseButton: CloseButton {};
@@ -116,6 +128,7 @@ class leaveNotes_read: leaveNotes_UI
   class ControlsBackground: ControlsBackground
   {
     class MainBackground: MainBackground {};
+    class Notepad: Notepad {};
 
     class TopBar: TopBar
     {
@@ -129,9 +142,9 @@ class leaveNotes_read: leaveNotes_UI
     {
       idc = LN_TEXTBOX;
       x = lnTotal_X + lnPadding_X;
-      y = lnBG_Y + lnPadding_Y;
+      y = lnBG_Y + 1.14*lnPadding_Y + lnButton_H;
       w = lnTotal_W - lnPadding_X - lnPadding_X;
-      h = lnBG_H - lnPadding_Y - (2*lnSpacing_Y + lnButton_H);
+      h = lnBG_H - 1.14*lnPadding_Y - (2*lnSpacing_Y + 3*lnButton_H);
     };
 
     class CloseButton: CloseButton {};
