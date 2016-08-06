@@ -7,7 +7,7 @@
 // Arma UI Mini Toolkit v1.0 by AgentRev
 
 // Uncomment the define below if you want your UIs to scale according to the UI size selected by the user
-//#define FOLLOW_UI_SIZE
+#define FOLLOW_UI_SIZE
 
 // Uncomment the define below if you want your UIs to scale according to the resolution selected by the user
 #define FOLLOW_RESOLUTION

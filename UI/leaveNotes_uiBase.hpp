@@ -34,7 +34,7 @@ class lnText
   w = 0.1;
   h = 0.05;
   font = "TahomaB";
-  sizeEx = 0.0465;
+  sizeEx = TEXT_SCALE_UI * 0.0465;
   colorBackground[] = {0,0,0,0};
   colorText[] = {0,0,0,1};
   text = "";
