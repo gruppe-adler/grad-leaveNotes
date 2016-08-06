@@ -3,9 +3,7 @@
 *   needs to be executed on both server and clients
 */
 
-#define ISPUBLIC true
 #define FILEPATH GRAD_leaveNotes_filePath
-
 GRAD_core_getFileDirectory = {
     params ['_filePath', '_worldname'];
 
@@ -37,12 +35,12 @@ FILEPATH = [__FILE__, worldname] call GRAD_core_getFileDirectory;
   #define LEAVENOTES_AMOUNT 10                                                  //amount of notes per player (irrelevant if LEAVENOTES_UNLIMITED)
   #define LEAVENOTES_PLAYERDIST 1                                               //distance to player that notes will be dropped
   #define LEAVENOTES_CLASS "Land_Notepad_F"                                     //note object class name
-  #define LEAVENOTES_ACTPIC_WRITE ""
-  #define LEAVENOTES_ACTPIC_READ ""
-  #define LEAVENOTES_ACTPIC_TAKE ""
-  #define LEAVENOTES_ACTPIC_DROP ""
-  #define LEAVENOTES_ACTPIC_DESTROY ""
-  #define LEAVENOTES_ACTPIC_MYNOTES ""
+  #define LEAVENOTES_ACTPIC_WRITE (FILEPATH + "UI\pic\write.paa")
+  #define LEAVENOTES_ACTPIC_READ (FILEPATH + "UI\pic\read.paa")
+  #define LEAVENOTES_ACTPIC_TAKE "\A3\ui_f\data\igui\cfg\actions\take_ca.paa"
+  #define LEAVENOTES_ACTPIC_DROP (FILEPATH + "UI\pic\drop.paa")
+  #define LEAVENOTES_ACTPIC_DESTROY (FILEPATH + "UI\pic\destroy.paa")
+  #define LEAVENOTES_ACTPIC_MYNOTES (FILEPATH + "UI\pic\note.paa")
   #define LEAVENOTES_ACTOFFSET [0,0,0.1]
   #define LEAVENOTES_ACTDIST 2
 #endif

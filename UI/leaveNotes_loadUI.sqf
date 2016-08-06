@@ -3,10 +3,8 @@
 */
 
 #include "leaveNotes_defines.sqf";
+#define FILEPATH GRAD_leaveNotes_filePath
 params [["_mode", "UNDEFINED"]];
-
-#define FILEPATH _GRAD_leaveNotes_uiFilePath
-FILEPATH = [__FILE__, worldname] call GRAD_core_getFileDirectory;
 
 disableSerialization;
 
@@ -15,14 +13,14 @@ switch (_mode) do {
     createDialog "leaveNotes_write";
     _dialog = findDisplay LN_DIALOG;
     _notepad = _dialog displayCtrl LN_NOTEPAD;
-    _notepad ctrlSetText (FILEPATH + "pic\notepad.paa");
+    _notepad ctrlSetText (FILEPATH + "UI\pic\notepad.paa");
   };
 
   case "READ": {
     createDialog "leaveNotes_read";
     _dialog = findDisplay LN_DIALOG;
     _notepad = _dialog displayCtrl LN_NOTEPAD;
-    _notepad ctrlSetText (FILEPATH + "pic\notepad.paa");
+    _notepad ctrlSetText (FILEPATH + "UI\pic\notepad.paa");
     _textBox = _dialog displayCtrl LN_TEXTBOX;
     _button2 = _dialog displayCtrl LN_BUTTON2;
     _message = "";
