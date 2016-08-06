@@ -43,6 +43,7 @@ FILEPATH = [__FILE__, worldname] call GRAD_core_getFileDirectory;
   #define LEAVENOTES_ACTPIC_MYNOTES (FILEPATH + "UI\pic\note.paa")
   #define LEAVENOTES_ACTOFFSET [0,0,0.1]
   #define LEAVENOTES_ACTDIST 2
+  #define LEAVENOTES_SLEEPTIME 0.1
 #endif
 //==============================================================================
 
@@ -62,13 +63,14 @@ if (LEAVENOTES_CANWRITENOTES) then {
   _action = ["GRAD_leaveNotes_mainAction", "Notes", LEAVENOTES_ACTPIC_MYNOTES, {}, {true}] call ace_interact_menu_fnc_createAction;
   [player, 1, ["ACE_SelfActions"], _action] call ace_interact_menu_fnc_addActionToObject;
 
-  _action = ["GRAD_leaveNotes_writeNote", "Write note", LEAVENOTES_ACTPIC_WRITE, {[] call GRAD_leaveNotes_fnc_writeNote}, {true}] call ace_interact_menu_fnc_createAction;
+  _action = ["GRAD_leaveNotes_writeNote", "Write note", LEAVENOTES_ACTPIC_WRITE, {[] spawn GRAD_leaveNotes_fnc_writeNote}, {true}] call ace_interact_menu_fnc_createAction;
   [player, 1, ["ACE_SelfActions", "GRAD_leaveNotes_mainAction"], _action] call ace_interact_menu_fnc_addActionToObject;
 };
 
 
 //WRITE NOTE ===================================================================
 GRAD_leaveNotes_fnc_writeNote = {
+  sleep LEAVENOTES_SLEEPTIME;
   if (!LEAVENOTES_UNLIMITED && (player getVariable ["GRAD_leaveNotes_amount", 0 ]) <= 0) exitWith {hint "Ich habe kein Papier mehr."};
   ["WRITE"] execVM (FILEPATH + "UI\leaveNotes_loadUI.sqf");
 };
@@ -93,7 +95,7 @@ GRAD_leaveNotes_fnc_initNote = {
   _action = ["GRAD_leaveNotes_mainActionGround", "Interactions", "", {}, {true}, {}, [], LEAVENOTES_ACTOFFSET, LEAVENOTES_ACTDIST] call ace_interact_menu_fnc_createAction;
   [_note, 0, [], _action] call ace_interact_menu_fnc_addActionToObject;
 
-  _action = ["GRAD_leaveNotes_readNoteGround", "Read note", LEAVENOTES_ACTPIC_READ, {[(_this select 0) getVariable ["message", ""], (_this select 0)] call GRAD_leaveNotes_fnc_readNote}, {true}] call ace_interact_menu_fnc_createAction;
+  _action = ["GRAD_leaveNotes_readNoteGround", "Read note", LEAVENOTES_ACTPIC_READ, {[(_this select 0) getVariable ["message", ""], (_this select 0)] spawn GRAD_leaveNotes_fnc_readNote}, {true}] call ace_interact_menu_fnc_createAction;
   [_note, 0, ["GRAD_leaveNotes_mainActionGround"], _action] call ace_interact_menu_fnc_addActionToObject;
 
   _action = ["GRAD_leaveNotes_takeNoteGround", "Take note", LEAVENOTES_ACTPIC_TAKE, {[_this select 0] call GRAD_leaveNotes_fnc_takeNote}, {true}] call ace_interact_menu_fnc_createAction;
@@ -109,6 +111,7 @@ GRAD_leaveNotes_fnc_readNote = {
   if (isNil "_note") exitWith {diag_log "GRAD_leaveNotes_fnc_readNote - ERROR: _note is nil."};
   if (typeName _note != "OBJECT" && typeName _note  != "SCALAR") exitWith {diag_log format ["GRAD_leaveNotes_fnc_readNote - ERROR: _note is %1, expected object or number.", typeName _note]};
 
+  sleep LEAVENOTES_SLEEPTIME;
   player setVariable ["GRAD_leaveNotes_activeNote", _note];
   ["READ"] execVM (FILEPATH + "UI\leaveNotes_loadUI.sqf");
 };
@@ -204,7 +207,7 @@ GRAD_leaveNotes_fnc_updateMyNotes = {
 
     //read
     _readactionName = _nodeName + "_read";
-    _readAction = compile format ["[player getVariable ['GRAD_leaveNotes_myNotes_%1_message', ''], %1] call GRAD_leaveNotes_fnc_readNote", _noteID];
+    _readAction = compile format ["[player getVariable ['GRAD_leaveNotes_myNotes_%1_message', ''], %1] spawn GRAD_leaveNotes_fnc_readNote", _noteID];
     _action = [_readactionName, "Read Note", LEAVENOTES_ACTPIC_READ, _readAction, {true}] call ace_interact_menu_fnc_createAction;
     [player, 1, ["ACE_SelfActions", "GRAD_leaveNotes_mainAction", _nodeName], _action] call ace_interact_menu_fnc_addActionToObject;
 
