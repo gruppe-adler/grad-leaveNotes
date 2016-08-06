@@ -63,7 +63,7 @@ if (LEAVENOTES_CANWRITENOTES) then {
   _action = ["GRAD_leaveNotes_mainAction", "Notes", LEAVENOTES_ACTPIC_MYNOTES, {}, {true}] call ace_interact_menu_fnc_createAction;
   [player, 1, ["ACE_SelfActions"], _action] call ace_interact_menu_fnc_addActionToObject;
 
-  _action = ["GRAD_leaveNotes_writeNote", "Write note", LEAVENOTES_ACTPIC_WRITE, {[] spawn GRAD_leaveNotes_fnc_writeNote}, {true}] call ace_interact_menu_fnc_createAction;
+  _action = ["GRAD_leaveNotes_writeNote", "Write Note", LEAVENOTES_ACTPIC_WRITE, {[] spawn GRAD_leaveNotes_fnc_writeNote}, {true}] call ace_interact_menu_fnc_createAction;
   [player, 1, ["ACE_SelfActions", "GRAD_leaveNotes_mainAction"], _action] call ace_interact_menu_fnc_addActionToObject;
 };
 
@@ -95,13 +95,13 @@ GRAD_leaveNotes_fnc_initNote = {
   _action = ["GRAD_leaveNotes_mainActionGround", "Interactions", "", {}, {true}, {}, [], LEAVENOTES_ACTOFFSET, LEAVENOTES_ACTDIST] call ace_interact_menu_fnc_createAction;
   [_note, 0, [], _action] call ace_interact_menu_fnc_addActionToObject;
 
-  _action = ["GRAD_leaveNotes_readNoteGround", "Read note", LEAVENOTES_ACTPIC_READ, {[(_this select 0) getVariable ["message", ""], (_this select 0)] spawn GRAD_leaveNotes_fnc_readNote}, {true}] call ace_interact_menu_fnc_createAction;
+  _action = ["GRAD_leaveNotes_readNoteGround", "Read Note", LEAVENOTES_ACTPIC_READ, {[(_this select 0) getVariable ["message", ""], (_this select 0)] spawn GRAD_leaveNotes_fnc_readNote}, {true}] call ace_interact_menu_fnc_createAction;
   [_note, 0, ["GRAD_leaveNotes_mainActionGround"], _action] call ace_interact_menu_fnc_addActionToObject;
 
-  _action = ["GRAD_leaveNotes_takeNoteGround", "Take note", LEAVENOTES_ACTPIC_TAKE, {[_this select 0] call GRAD_leaveNotes_fnc_takeNote}, {true}] call ace_interact_menu_fnc_createAction;
+  _action = ["GRAD_leaveNotes_takeNoteGround", "Take Note", LEAVENOTES_ACTPIC_TAKE, {[_this select 0] call GRAD_leaveNotes_fnc_takeNote}, {true}] call ace_interact_menu_fnc_createAction;
   [_note, 0, ["GRAD_leaveNotes_mainActionGround"], _action] call ace_interact_menu_fnc_addActionToObject;
 
-  _action = ["GRAD_leaveNotes_destroyNoteGround", "Destroy note", LEAVENOTES_ACTPIC_DESTROY, {[_this select 0] call GRAD_leaveNotes_fnc_destroyNote}, {true}] call ace_interact_menu_fnc_createAction;
+  _action = ["GRAD_leaveNotes_destroyNoteGround", "Destroy Note", LEAVENOTES_ACTPIC_DESTROY, {[_this select 0] call GRAD_leaveNotes_fnc_destroyNote}, {true}] call ace_interact_menu_fnc_createAction;
   [_note, 0, ["GRAD_leaveNotes_mainActionGround"], _action] call ace_interact_menu_fnc_addActionToObject;
 };
 
