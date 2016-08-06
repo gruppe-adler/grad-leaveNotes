@@ -4,6 +4,7 @@
 */
 
 #define FILEPATH GRAD_leaveNotes_filePath
+
 GRAD_core_getFileDirectory = {
     params ['_filePath', '_worldname'];
 
@@ -35,15 +36,18 @@ FILEPATH = [__FILE__, worldname] call GRAD_core_getFileDirectory;
   #define LEAVENOTES_AMOUNT 10                                                  //amount of notes per player (irrelevant if LEAVENOTES_UNLIMITED)
   #define LEAVENOTES_PLAYERDIST 1                                               //distance to player that notes will be dropped
   #define LEAVENOTES_CLASS "Land_Notepad_F"                                     //note object class name
+  #define LEAVENOTES_ACTOFFSET [0,0,0.1]                                        //interaction point offset to notepad object
+  #define LEAVENOTES_ACTDIST 2                                                  //interaction distance
+  #define LEAVENOTES_SLEEPTIME 0.1                                              //sleeptime between interaction and creation of dialog (ACE-interact-menu would stay open sometimes)
+#endif
+
+#ifndef LEAVENOTES_ACTPIC_WRITE
   #define LEAVENOTES_ACTPIC_WRITE (FILEPATH + "UI\pic\write.paa")               //"write note" action picture path
   #define LEAVENOTES_ACTPIC_READ (FILEPATH + "UI\pic\read.paa")                 //"read note" action picture path
   #define LEAVENOTES_ACTPIC_TAKE "\A3\ui_f\data\igui\cfg\actions\take_ca.paa"   //"take note" action picture path
   #define LEAVENOTES_ACTPIC_DROP (FILEPATH + "UI\pic\drop.paa")                 //"drop note" action picture path
   #define LEAVENOTES_ACTPIC_DESTROY (FILEPATH + "UI\pic\destroy.paa")           //"destroy note" action picture path
   #define LEAVENOTES_ACTPIC_MYNOTES (FILEPATH + "UI\pic\note.paa")              //"my notes" action-node picture path
-  #define LEAVENOTES_ACTOFFSET [0,0,0.1]                                        //interaction point offset to notepad object
-  #define LEAVENOTES_ACTDIST 2                                                  //interaction distance
-  #define LEAVENOTES_SLEEPTIME 0.1                                              //sleeptime between interaction and creation of dialog (ACE-interact-menu would stay open sometimes)
 #endif
 //==============================================================================
 
