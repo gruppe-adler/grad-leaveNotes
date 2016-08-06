@@ -8,28 +8,29 @@
 #define ISPUBLIC true
 #define FILEPATH GRAD_leaveNotes_filePath
 
-//get file paths in case this is included as a dependency
-_mcd_fnc_isMissionFileName = {
-  params ["_string"];
-  _splitArray = _string splitString ".";
-  worldName in _splitArray;
+GRAD_core_getFileDirectory = {
+    params ['_filePath', '_worldname'];
+
+    _isMissionFileName = {
+        _splitArray = _this splitString ".";
+        (count _splitArray == 2) && (_worldname in _splitArray);
+    };
+
+    _filePathArray = _filePath splitString "\";
+    _start = 0;
+    {
+        if (_x call _isMissionFileName) exitWith {
+            _start = _forEachIndex + 1;
+        };
+    } forEach _filePathArray;
+
+    _directoryCount = (count _filePathArray) - 1 - _start;
+    _filePathArray = _filePathArray select [_start, _directoryCount];
+    if (count _filePathArray > 0) then {_filePathArray pushBack ""};
+    _filePathArray joinString "\";
 };
 
-//find mission file name in script filepath
-_filePath = __FILE__;
-_filePathArray = _filePath splitString "\";
-_i=0;
-for [{_i=0}, {_i<(count _filePathArray)-1}, {_i=_i+1}] do {
-  if ([_filePathArray select _i] call _mcd_fnc_isMissionFileName) exitWith {};
-};
-
-//construct script path relative to mission folder (_i is reused here)
-_scriptPathArray = [];
-for [{_i=_i+1}, {_i<(count _filePathArray)-1}, {_i=_i+1}] do {
-  _scriptPathArray pushBack (_filePathArray select _i);
-};
-if (count _scriptPathArray > 0) then {_scriptPathArray pushBack ""};
-FILEPATH = _scriptPathArray joinString "\";
+FILEPATH = [__FILE__, worldname] call GRAD_core_getFileDirectory;
 
 //CONFIG VALUES (YOU CAN CHANGE THESE!) ========================================
 #define CANWRITENOTES true
@@ -51,6 +52,9 @@ FILEPATH = _scriptPathArray joinString "\";
 if (!isNil "GRAD_leaveNotes_initialized") exitWith {};
 GRAD_leaveNotes_initialized = true;
 
+//ui functions
+[] call compile preprocessFileLineNumbers (FILEPATH + "UI\leaveNotes_uiFunctions.sqf");
+
 //add ACE-Selfinteraction
 if (CANWRITENOTES) then {
   _action = ["GRAD_leaveNotes_mainAction", "Notes", ACTION_PIC_MYNOTES, {}, {true}] call ace_interact_menu_fnc_createAction;
@@ -63,8 +67,7 @@ if (CANWRITENOTES) then {
 
 //WRITE NOTE ===================================================================
 GRAD_leaveNotes_fnc_writeNote = {
-  _message = "KJLASJDKLJASJDKLJJASKLDJKLJASJND lkasdj lkasjdkl asdl kIOKJASodkjioasj od kals jdlk askldlasdaös dlk asdkl jlaks djlk AL J";
-  [_message] call GRAD_leaveNotes_fnc_dropNote;
+  ["WRITE"] execVM (FILEPATH + "UI\leaveNotes_loadUI.sqf");
 };
 
 //DROP NOTE ====================================================================
@@ -87,7 +90,7 @@ GRAD_leaveNotes_fnc_initNote = {
   _action = ["GRAD_leaveNotes_mainActionGround", "Interactions", "", {}, {true}, {}, [], ACTION_OFFSET, ACTION_DISTANCE] call ace_interact_menu_fnc_createAction;
   [_note, 0, [], _action] call ace_interact_menu_fnc_addActionToObject;
 
-  _action = ["GRAD_leaveNotes_readNoteGround", "Read note", ACTION_PIC_READ, {[(_this select 0) getVariable ["message", ""]] call GRAD_leaveNotes_fnc_readNote}, {true}] call ace_interact_menu_fnc_createAction;
+  _action = ["GRAD_leaveNotes_readNoteGround", "Read note", ACTION_PIC_READ, {[(_this select 0) getVariable ["message", ""], (_this select 0)] call GRAD_leaveNotes_fnc_readNote}, {true}] call ace_interact_menu_fnc_createAction;
   [_note, 0, ["GRAD_leaveNotes_mainActionGround"], _action] call ace_interact_menu_fnc_addActionToObject;
 
   _action = ["GRAD_leaveNotes_takeNoteGround", "Take note", ACTION_PIC_TAKE, {[_this select 0] call GRAD_leaveNotes_fnc_takeNote}, {true}] call ace_interact_menu_fnc_createAction;
@@ -99,14 +102,12 @@ GRAD_leaveNotes_fnc_initNote = {
 
 //READ NOTE ====================================================================
 GRAD_leaveNotes_fnc_readNote = {
-  params ["_message", "_inventoryID"];
+  params ["_message", "_note"];
+  if (isNil "_note") exitWith {diag_log "GRAD_leaveNotes_fnc_readNote - ERROR: _note is nil."};
+  if (typeName _note != "OBJECT" && typeName _note  != "SCALAR") exitWith {diag_log format ["GRAD_leaveNotes_fnc_readNote - ERROR: _note is %1, expected object or number.", typeName _note]};
 
-  //ground note
-  if (isNil "_inventoryID") then {
-
-  };
-
-  hint _message;
+  player setVariable ["GRAD_leaveNotes_activeNote", _note];
+  ["READ"] execVM (FILEPATH + "UI\leaveNotes_loadUI.sqf");
 };
 
 //TAKE NOTE ====================================================================
@@ -184,7 +185,18 @@ GRAD_leaveNotes_fnc_updateMyNotes = {
 //DESTROY NOTE =================================================================
 GRAD_leaveNotes_fnc_destroyNote = {
   params ["_note"];
-  deleteVehicle _note;
+  if (isNil "_note") then {_note = player getVariable ["GRAD_leaveNotes_activeNote", objNull]};
+
+  //ground note
+  if (typeName _note == "OBJECT") then {
+    if (isNull _note) exitWith {hint "Jemand ist mir zuvorgekommen."};
+    deleteVehicle _note;
+  };
+
+  //inventory note
+  if (typeName _note == "SCALAR") then {
+    [_note, "remove"] call GRAD_leaveNotes_fnc_updateMyNotes;
+  };
 };
 
 //SPAWN NOTE ===================================================================
