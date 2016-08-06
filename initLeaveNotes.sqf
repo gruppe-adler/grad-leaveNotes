@@ -47,8 +47,6 @@ FILEPATH = [__FILE__, worldname] call GRAD_core_getFileDirectory;
 #endif
 //==============================================================================
 
-
-
 //prevent executing this twice on non-dedicated
 if (!isNil "GRAD_leaveNotes_initialized") exitWith {};
 GRAD_leaveNotes_initialized = true;
@@ -56,15 +54,20 @@ GRAD_leaveNotes_initialized = true;
 //ui functions
 [] call compile preprocessFileLineNumbers (FILEPATH + "UI\leaveNotes_uiFunctions.sqf");
 
+
 //add ACE-Selfinteraction
-if (LEAVENOTES_CANWRITENOTES) then {
-  player setVariable ["GRAD_leaveNotes_amount", LEAVENOTES_AMOUNT];
+[] spawn {
+  if (LEAVENOTES_CANWRITENOTES && hasInterface) then {
+    waitUntil {!isNull player};
 
-  _action = ["GRAD_leaveNotes_mainAction", "Notes", LEAVENOTES_ACTPIC_MYNOTES, {}, {true}] call ace_interact_menu_fnc_createAction;
-  [player, 1, ["ACE_SelfActions"], _action] call ace_interact_menu_fnc_addActionToObject;
+    player setVariable ["GRAD_leaveNotes_amount", LEAVENOTES_AMOUNT];
 
-  _action = ["GRAD_leaveNotes_writeNote", "Write Note", LEAVENOTES_ACTPIC_WRITE, {[] spawn GRAD_leaveNotes_fnc_writeNote}, {true}] call ace_interact_menu_fnc_createAction;
-  [player, 1, ["ACE_SelfActions", "GRAD_leaveNotes_mainAction"], _action] call ace_interact_menu_fnc_addActionToObject;
+    _action = ["GRAD_leaveNotes_mainAction", "Notes", LEAVENOTES_ACTPIC_MYNOTES, {}, {true}] call ace_interact_menu_fnc_createAction;
+    [player, 1, ["ACE_SelfActions"], _action] call ace_interact_menu_fnc_addActionToObject;
+
+    _action = ["GRAD_leaveNotes_writeNote", "Write Note", LEAVENOTES_ACTPIC_WRITE, {[] spawn GRAD_leaveNotes_fnc_writeNote}, {true}] call ace_interact_menu_fnc_createAction;
+    [player, 1, ["ACE_SelfActions", "GRAD_leaveNotes_mainAction"], _action] call ace_interact_menu_fnc_addActionToObject;
+  };
 };
 
 
