@@ -61,9 +61,9 @@ GRAD_leaveNotes_initialized = true;
 
 //add ACE-Selfinteraction
 [] spawn {
-  if (LEAVENOTES_CANWRITENOTES && hasInterface) then {
-    waitUntil {!isNull player};
-
+  if (!hasInterface) exitWith {};
+  waitUntil {!isNull player};
+  if (LEAVENOTES_CANWRITENOTES) then {
     player setVariable ["GRAD_leaveNotes_amount", LEAVENOTES_AMOUNT];
 
     _action = ["GRAD_leaveNotes_mainAction", "Notes", LEAVENOTES_ACTPIC_MYNOTES, {}, {true}] call ace_interact_menu_fnc_createAction;
