@@ -1,26 +1,25 @@
-/*  Loads GUI in read or write mode
-*
-*/
+#define PREFIX grad
+#define COMPONENT leaveNotes
+#include "\x\cba\addons\main\script_macros_mission.hpp"
+#include "..\dialog\defines.hpp"
 
-#include "leaveNotes_defines.sqf";
-#define FILEPATH GRAD_leaveNotes_filePath
 params [["_mode", "UNDEFINED"]];
 
 disableSerialization;
 
 switch (_mode) do {
   case "WRITE": {
-    createDialog "leaveNotes_write";
+    createDialog "GRAD_leaveNotes_write";
     _dialog = findDisplay LN_DIALOG;
     _notepad = _dialog displayCtrl LN_NOTEPAD;
-    _notepad ctrlSetText (FILEPATH + "UI\pic\notepad.paa");
+    _notepad ctrlSetText (GRAD_leaveNotes_moduleRoot + "\data\notepad.paa");
   };
 
   case "READ": {
-    createDialog "leaveNotes_read";
+    createDialog "GRAD_leaveNotes_read";
     _dialog = findDisplay LN_DIALOG;
     _notepad = _dialog displayCtrl LN_NOTEPAD;
-    _notepad ctrlSetText (FILEPATH + "UI\pic\notepad.paa");
+    _notepad ctrlSetText (GRAD_leaveNotes_moduleRoot + "\data\notepad.paa");
     _textBox = _dialog displayCtrl LN_TEXTBOX;
     _button2 = _dialog displayCtrl LN_BUTTON2;
     _message = "";
@@ -41,5 +40,5 @@ switch (_mode) do {
 
   };
 
-  default {diag_log format ["leaveNotes_loadUI.sqf - ERROR: %1 is not a valid mode.", _mode]};
+  default {ERROR(format ["%1 is not a valid mode.", _mode])};
 };

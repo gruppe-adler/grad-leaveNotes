@@ -1,5 +1,5 @@
-# scripts_GRAD_leaveNotes
-GRAD note system (originally for Rattrap)
+# grad-leaveNotes
+GRAD note system
 
 * Enables you to:
   * write notes (ACE-Selfinteraction)
@@ -7,10 +7,8 @@ GRAD note system (originally for Rattrap)
   * store notes in your (virtual) inventory (ACE-Selfinteraction)
   * read notes while on the ground / in virtual inventory
   * destroy notes on the ground / in virtual inventory
-* To use this, you need to:
-  * call initLeaveNotes.sqf on both server and clients on mission start
-  * #include leaveNotes_dialog.hpp in your description.ext
-  * (optionally) configure settings below header in initLeaveNotes.sqf
-  
-  
+
+
 [YOUTUBE VIDEO](https://www.youtube.com/watch?v=RiyfNgn-hQo&feature=youtu.be)
+
+## README needs an update
