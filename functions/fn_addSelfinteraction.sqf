@@ -1,8 +1,9 @@
-_startAmount = player getVariable "GRAD_leaveNotes_amount";
-if (isNil "_startAmount") then {player setVariable ["GRAD_leaveNotes_amount", GRAD_leaveNotes_startAmount]};
+//add main selfinteraction node
+_mainCondition = {(player getVariable ["GRAD_leaveNotes_notesInInventory", 0]) > 0 || {player getVariable ["GRAD_leaveNotes_canWriteNotes", GRAD_leaveNotes_canWriteDefault]}};
+_action = ["GRAD_leaveNotes_mainAction", "Notes", GRAD_leaveNotes_moduleRoot + "\data\note.paa", {}, _mainCondition] call ace_interact_menu_fnc_createAction;
+[player, 1, ["ACE_SelfActions","ACE_Equipment"], _action] call ace_interact_menu_fnc_addActionToObject;
 
-_action = ["GRAD_leaveNotes_mainAction", "Notes", GRAD_leaveNotes_moduleRoot + "\data\note.paa", {}, {true}] call ace_interact_menu_fnc_createAction;
-[player, 1, ["ACE_SelfActions"], _action] call ace_interact_menu_fnc_addActionToObject;
-
-_action = ["GRAD_leaveNotes_writeNote", "Write Note", GRAD_leaveNotes_moduleRoot + "\data\write.paa", {[[],GRAD_leaveNotes_fnc_writeNote] call GRAD_leaveNotes_fnc_delayedCall}, {true}] call ace_interact_menu_fnc_createAction;
-[player, 1, ["ACE_SelfActions", "GRAD_leaveNotes_mainAction"], _action] call ace_interact_menu_fnc_addActionToObject;
+//add write action
+_writeCondition = {player getVariable ["GRAD_leaveNotes_canWriteNotes", GRAD_leaveNotes_canWriteDefault]};
+_action = ["GRAD_leaveNotes_writeNote", "Write Note", GRAD_leaveNotes_moduleRoot + "\data\write.paa", {[[],GRAD_leaveNotes_fnc_writeNote] call GRAD_leaveNotes_fnc_delayedCall}, _writeCondition] call ace_interact_menu_fnc_createAction;
+[player, 1, ["ACE_SelfActions", "ACE_Equipment", "GRAD_leaveNotes_mainAction"], _action] call ace_interact_menu_fnc_addActionToObject;

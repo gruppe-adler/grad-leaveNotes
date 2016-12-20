@@ -1,3 +1,7 @@
+#ifndef MODULES_DIRECTORY
+    #define MODULES_DIRECTORY modules
+#endif
+
 #define SOUNDPATH(var1,var2) ##var1##\##var2
 #define VOLUME 0.7
 #define DISTANCE 10

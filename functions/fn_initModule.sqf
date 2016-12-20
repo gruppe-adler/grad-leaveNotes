@@ -10,5 +10,10 @@ GRAD_leaveNotes_startAmount = [missionConfigFile >> "GRAD_leaveNotes" >> "startA
 GRAD_leaveNotes_interactionSleepTime = 0.1;
 
 if (!hasInterface) exitWith {};
-if !(player getVariable ["GRAD_leaveNotes_canWriteNotes", GRAD_leaveNotes_canWriteDefault]) exitWith {};
+
+//set start amount
+_startAmount = player getVariable "GRAD_leaveNotes_amount";
+if (isNil "_startAmount") then {player setVariable ["GRAD_leaveNotes_amount", GRAD_leaveNotes_startAmount]};
+
+//add interaction
 [{!isNull player}, {[] call GRAD_leaveNotes_fnc_addSelfinteraction}, []] call CBA_fnc_waitUntilAndExecute;
