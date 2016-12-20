@@ -18,6 +18,7 @@ if (_mode == "remove") then {
 
 //add note
 if (_mode == "add") then {
+    player setVariable ["GRAD_leaveNotes_notesHandled", (player getVariable ["GRAD_leaveNotes_notesHandled", 0]) + 1];
     player setVariable ["GRAD_leaveNotes_notesInInventory", (player getVariable ["GRAD_leaveNotes_notesInInventory", 0]) + 1];
     _nodeName = format ["GRAD_leaveNotes_myNotes_%1", _noteID];
     player setVariable [_nodeName + "_message", _message];

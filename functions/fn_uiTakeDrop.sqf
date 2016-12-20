@@ -9,7 +9,6 @@ if (typeName _note == "OBJECT") then {
     [_note] call GRAD_leaveNotes_fnc_destroyNote;
     _message = _note getVariable ["message", ""];
     [(player getVariable ["GRAD_leaveNotes_notesHandled", 0]) + 1, "add", _message] call GRAD_leaveNotes_fnc_updateMyNotes;
-    player setVariable ["GRAD_leaveNotes_notesHandled", (player getVariable ["GRAD_leaveNotes_notesHandled", 0]) + 1];
 };
 
 //drop
