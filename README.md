@@ -9,7 +9,7 @@
 
 GRAD LeaveNotes is multiplayer and JIP proof.
 
-[YOUTUBE VIDEO](https://www.youtube.com/watch?v=RiyfNgn-hQo&feature=youtu.be)
+[![Youtube Video](http://i.imgur.com/0tT6LX3.png)](https://www.youtube.com/watch?v=RiyfNgn-hQo&feature=youtu.be)
 
 
 ## Dependencies
