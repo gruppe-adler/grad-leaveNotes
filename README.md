@@ -47,10 +47,10 @@ class CfgSounds {
 ## Usage
 Using the notes system is fairly intuitive. Open up your ACE selfinteraction menu, go to "Equipment", "Notes" and choose "Write Note". A notepad will open up. Write whatever you like, then hit "SAVE" to put the note into your virtual inventory or hit "DROP" to place it on the ground. Use your ACE interaction key to read, pick up or destroy notes on the ground. Use your selfinteraction menu and go to "Equipment", "Notes" again to read, drop or destroy notes in your virtual inventory.
 
-Put this into a player's init box to enable or disable him to write notes (default is true):
+Put this into a player's init box to enable or disable him to write notes (default is true):  
 `[this, true/false] call GRAD_leaveNotes_fnc_allowWriting;`
 
-Put this into a player's init box to set how many notes he can write (default is 10):
+Put this into a player's init box to set how many notes he can write (default is 10):  
 `[this, AMOUNTOFNOTES] call GRAD_leaveNotes_fnc_setAmount;`
 
 Both of these functions can also be called on the server or the player.
