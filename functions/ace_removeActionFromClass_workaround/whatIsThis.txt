@@ -1,0 +1,1 @@
+This is a workaround to remove ACE actions from classes, that were added by inheritance. Currently ace_interact_menu_fnc_removeActionFromClass does not support inheritance.

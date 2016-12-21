@@ -9,11 +9,18 @@ GRAD_leaveNotes_startAmount = [missionConfigFile >> "GRAD_leaveNotes" >> "startA
 
 GRAD_leaveNotes_interactionSleepTime = 0.1;
 
+GRAD_leaveNotes_inheritFromCAManBase = ("configName _x isKindOf 'Car'" configClasses (configFile / "CfgVehicles")) apply {configName _x};
+
 if (!hasInterface) exitWith {};
 
 //set start amount
 _startAmount = player getVariable "GRAD_leaveNotes_amount";
 if (isNil "_startAmount") then {player setVariable ["GRAD_leaveNotes_amount", GRAD_leaveNotes_startAmount]};
 
-//add interaction
-[{!isNull player}, {[] call GRAD_leaveNotes_fnc_addSelfinteraction}, []] call CBA_fnc_waitUntilAndExecute;
+//add interaction nodes
+[{!isNull player}, {
+    [] call GRAD_leaveNotes_fnc_addSelfinteraction;
+
+    _action = ["GRAD_leaveNotes_mainGiveAction", "Give note", GRAD_leaveNotes_moduleRoot + "\data\give.paa", {}, {(player getVariable ["GRAD_leaveNotes_notesInInventory", 0]) > 0}] call ace_interact_menu_fnc_createAction;
+    ["CAManBase",0,["ACE_MainActions"],_action,true] call ace_interact_menu_fnc_addActionToClass;
+}, []] call CBA_fnc_waitUntilAndExecute;
