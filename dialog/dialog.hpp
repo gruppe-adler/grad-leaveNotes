@@ -46,6 +46,8 @@ class GRAD_leaveNotes_UI
     {
         class CloseButton: GRAD_leaveNotes_RscCloseButton
         {
+            idc = LN_CLOSEBUTTON;
+
             x = (lnTotal_X + lnTotal_W) - (lnCloseButton_W + lnSpacing_X);
             y = lnTotal_Y + lnSpacing_Y;
             w = lnCloseButton_W;
@@ -97,6 +99,8 @@ class GRAD_leaveNotes_write: GRAD_leaveNotes_UI
             y = lnBG_Y + 1.14*lnPadding_Y + lnButton_H;
             w = lnTotal_W - lnPadding_X - lnPadding_X;
             h = lnBG_H - 1.14*lnPadding_Y - (2*lnSpacing_Y + 3*lnButton_H);
+
+            onKeyUp = "params ['_ctrl','_key','_shift']; if ((_key isEqualTo 28 || _key isEqualTo 156) and !_shift) then {[] call GRAD_leaveNotes_fnc_enterHint}";
         };
 
         class CloseButton: CloseButton {};

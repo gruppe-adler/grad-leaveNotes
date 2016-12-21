@@ -21,29 +21,30 @@ class GRAD_leaveNotes_RscUIBack {
 };
 
 class GRAD_leaveNotes_RscText {
-  idc = -1;
-  access = 0;
-  type = CT_STATIC;
+    idc = -1;
+    access = 0;
+    type = CT_STATIC;
 
-  style = ST_MULTI;
-  lineSpacing = 1;
-  w = 0.1;
-  h = 0.05;
-  font = "TahomaB";
-  sizeEx = TEXT_SCALE_UI * 0.0465;
-  colorBackground[] = {0,0,0,0};
-  colorText[] = {0,0,0,1};
-  text = "";
-  fixedWidth = 0;
-  shadow = 0;
+    style = ST_MULTI;
+    lineSpacing = 1;
+    w = 0.1;
+    h = 0.05;
+    font = "TahomaB";
+    sizeEx = TEXT_SCALE_UI * 0.0465;
+    colorBackground[] = {0,0,0,0};
+    colorText[] = {0,0,0,1};
+    text = "";
+    fixedWidth = 0;
+    shadow = 0;
 };
 
 class GRAD_leavNotes_RscEditBox: GRAD_leaveNotes_RscText {
-  type = CT_EDIT;
-  colorDisabled[] = {0,0,0,0};
-  colorSelection[] = {0,0,0,0.25};
-  autocomplete = "";
-  size = 0.2;
+    type = CT_EDIT;
+    colorDisabled[] = {0,0,0,0};
+    colorSelection[] = {0,0,0,0.25};
+    autocomplete = "";
+    htmlControl = 1;
+    size = 0.2;
 };
 
 class GRAD_leaveNotes_RscCloseButton {

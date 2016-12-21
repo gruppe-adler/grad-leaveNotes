@@ -10,6 +10,7 @@ class GRAD_leaveNotes {
         class delayedCall {};
         class destroyNote {};
         class dropNote {};
+        class enterHint {};
         class allowWriting {};
         class generateName {};
         class getModuleRoot {};

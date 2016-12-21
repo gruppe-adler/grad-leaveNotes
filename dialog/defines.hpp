@@ -2,6 +2,7 @@
 #define LN_DIALOG           6000
 #define LN_TITLE            6010
 #define LN_NOTEPAD          6020
+#define LN_CLOSEBUTTON      6030
 #define LN_BUTTON1          6100
 #define LN_BUTTON2          6200
 #define LN_EDITBOX          6300
