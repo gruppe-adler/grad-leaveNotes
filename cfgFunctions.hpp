@@ -18,7 +18,9 @@ class GRAD_leaveNotes {
         class initModule {postInit = 1;};
         class initNote {};
         class loadUI {};
+        class playGiveAnimation {};
         class readNote {};
+        class receiveNote {};
         class setAmount {};
         class spawnNote {};
         class takeNote {};

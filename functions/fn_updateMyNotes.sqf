@@ -53,6 +53,6 @@ if (_mode == "add") then {
 
     //give
     _giveactionName = _nodeName + "_give";
-    _action = [_giveactionName, _actionDisplayText, GRAD_leaveNotes_moduleRoot + "\data\note.paa", {(_this select 2) call GRAD_leaveNotes_fnc_giveNote}, {true}, {}, [_noteID, _message]] call ace_interact_menu_fnc_createAction;
+    _action = [_giveactionName, _actionDisplayText, GRAD_leaveNotes_moduleRoot + "\data\note.paa", {_this call GRAD_leaveNotes_fnc_giveNote}, {true}, {}, [_noteID, _message]] call ace_interact_menu_fnc_createAction;
     ["CAManBase",0,["ACE_MainActions","GRAD_leaveNotes_mainGiveAction"],_action,true] call ace_interact_menu_fnc_addActionToClass;
 };
