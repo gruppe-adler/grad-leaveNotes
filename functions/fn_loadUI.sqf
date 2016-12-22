@@ -3,7 +3,7 @@
 #include "\x\cba\addons\main\script_macros_mission.hpp"
 #include "..\dialog\defines.hpp"
 
-params [["_mode", "UNDEFINED"]];
+params [["_mode", "UNDEFINED"],"_note","_message","_handwriting"];
 
 disableSerialization;
 
@@ -22,18 +22,16 @@ switch (_mode) do {
     _notepad ctrlSetText (GRAD_leaveNotes_moduleRoot + "\data\notepad.paa");
     _textBox = _dialog displayCtrl LN_TEXTBOX;
     _button2 = _dialog displayCtrl LN_BUTTON2;
-    _message = "";
-    _note = player getVariable ["GRAD_leaveNotes_activeNote", objNull];
+    //_message = "";
+    //_note = player getVariable ["GRAD_leaveNotes_activeNote", objNull];
 
     if (typeName _note == "OBJECT") then {
-      _message = _note getVariable ["message", ""];
-      _button2 ctrlSetText "TAKE";
+        _button2 ctrlSetText "TAKE";
     };
 
     if (typeName _note == "SCALAR") then {
-      _nodeName = format ["GRAD_leaveNotes_myNotes_%1", _note];
-      _message = player getVariable [_nodeName + "_message", ""];
-      _button2 ctrlSetText "DROP";
+        _nodeName = format ["GRAD_leaveNotes_myNotes_%1", _note];
+        _button2 ctrlSetText "DROP";
     };
 
     _textBox ctrlSetText _message;
