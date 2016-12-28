@@ -151,6 +151,7 @@ class GRAD_leaveNotes_read: GRAD_leaveNotes_UI
         };
 
         class Button2: Button2 {
+            text = "DROP";
             action = "[] call GRAD_leaveNotes_fnc_uiTakeDrop; closeDialog 0";
         };
     };

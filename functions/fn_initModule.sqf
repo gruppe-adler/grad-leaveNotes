@@ -17,6 +17,9 @@ if (!hasInterface) exitWith {};
 _startAmount = player getVariable "GRAD_leaveNotes_amount";
 if (isNil "_startAmount") then {player setVariable ["GRAD_leaveNotes_amount", GRAD_leaveNotes_startAmount]};
 
+//set handwriting
+[player] call GRAD_leaveNotes_fnc_setHandwriting;
+
 //add interaction nodes
 [{!isNull player}, {
     [] call GRAD_leaveNotes_fnc_addSelfinteraction;

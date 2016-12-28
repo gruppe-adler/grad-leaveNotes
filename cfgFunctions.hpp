@@ -17,11 +17,13 @@ class GRAD_leaveNotes {
         class giveNote {};
         class initModule {postInit = 1;};
         class initNote {};
+        class inspectNote {};
         class loadUI {};
         class playGiveAnimation {};
         class readNote {};
         class receiveNote {};
         class setAmount {};
+        class setHandwriting {};
         class spawnNote {};
         class takeNote {};
         class uiDrop {};
