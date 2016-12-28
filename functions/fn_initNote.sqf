@@ -16,5 +16,5 @@ _action = ["GRAD_leaveNotes_takeNoteGround", "Take Note", "\A3\ui_f\data\igui\cf
 _action = ["GRAD_leaveNotes_destroyNoteGround", "Destroy Note", GRAD_leaveNotes_moduleRoot + "\data\destroy.paa", {[_this select 0] call GRAD_leaveNotes_fnc_destroyNote}, {true}] call ace_interact_menu_fnc_createAction;
 [_note, 0, ["GRAD_leaveNotes_mainActionGround"], _action] call ace_interact_menu_fnc_addActionToObject;
 
-_action = ["GRAD_leaveNotes_inspectNoteGround", "Inspect Note", GRAD_leaveNotes_moduleRoot + "\data\read.paa", {[(_this select 0) getVariable ["handwriting", ["",""]]] call GRAD_leaveNotes_fnc_inspectNote}, {true}] call ace_interact_menu_fnc_createAction;
+_action = ["GRAD_leaveNotes_inspectNoteGround", "Inspect Note", GRAD_leaveNotes_moduleRoot + "\data\inspect.paa", {[(_this select 0) getVariable ["handwriting", ["",""]]] call GRAD_leaveNotes_fnc_inspectNote}, {true}] call ace_interact_menu_fnc_createAction;
 [_note, 0, ["GRAD_leaveNotes_mainActionGround"], _action] call ace_interact_menu_fnc_addActionToObject;
