@@ -2,7 +2,7 @@
 #define COMPONENT leaveNotes
 #include "\x\cba\addons\main\script_macros_mission.hpp"
 
-params ["_message", "_note", ["_handwriting", ["",""]]];
+params ["_message", "_note", ["_handwriting", ["",["",""]]]];
 private ["_message"];
 
 if (isNil "_note") exitWith {ERROR("_note is nil.")};

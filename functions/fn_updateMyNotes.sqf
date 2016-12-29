@@ -1,5 +1,5 @@
 if (!hasInterface) exitWith {};
-params ["_noteID", "_mode", ["_message", ""], ["_handwriting", ["",""]]];
+params ["_noteID", "_mode", ["_message", ""], ["_handwriting", ["",["",""]]]];
 
 //remove note
 if (_mode == "remove") then {

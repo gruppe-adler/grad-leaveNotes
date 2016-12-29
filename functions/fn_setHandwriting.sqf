@@ -1,27 +1,25 @@
 params ["_unit"];
 
+if (!isServer && !local _unit) exitWith {};
 
-_descriptors = [
-    "cursive",
-    "bold",
-    "small",
-    "fine",
-    "shaky",
-    "elegant",
-    "sloppy",
-    "messy"
+_types = [
+    ["small","PuristaLight"],
+    ["fine","PuristaMedium"],
+    ["sloppy","PuristaSemiBold"],
+    ["messy","PuristaBold"],
+    ["angular","LucidaConsoleB"],
+    ["elegant","EtelkaMonospacePro"],
+    ["meticulous","EtelkaMonospaceProBold"],
+    ["cramped","EtelkaNarrowMediumPro"],
+    ["bold","TahomaB"]
 ];
 
 _modifiers = [
-    "very",
-    "extraordinarily",
-    "slightly",
     "somewhat",
     "quite",
     "remarkably"
 ];
 
 
-_isPublic = !local _unit;
-_handwriting = [selectRandom _modifiers, selectRandom _descriptors];
-_unit setVariable ["GRAD_leaveNotes_handwriting", _handwriting, _isPublic];
+_handwriting = [selectRandom _modifiers, selectRandom _types];
+_unit setVariable ["GRAD_leaveNotes_handwriting", _handwriting, true];

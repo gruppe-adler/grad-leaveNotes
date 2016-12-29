@@ -72,10 +72,11 @@ Add the class `GRAD_leaveNotes` to your `description.ext`, then add any of these
 
 | Attribute       | Default Value    | Explanation                                                 |
 |-----------------|------------------|-------------------------------------------------------------|
-| canWriteDefault | 1                | (1/0) Can everyone write notes by default?                  |
-| canInspectDefault | 1              | (1/0) Can everyone inspect a note's handwriting by default? |
 | startAmount     | 10               | (Number) How many notes a player can write by default.      |
 | noteObject      | "Land_Notepad_F" | (String) Note object class name.                            |
 | actOffset[]     | {0,0,0.1}        | (Array) Note object interaction point offset.               |
 | actDist         | 2                | (Number) Note object interaction distance.                  |
 | playerDistance  | 1                | (Number) Distance to player at which notes will be dropped. |
+| visibleHandwriting | 1             | (1/0) is a player's handwriting represented by a specific font? |
+| canWriteDefault | 1                | (1/0) Can everyone write notes by default?                  |
+| canInspectDefault | 1              | (1/0) Can everyone inspect a note's handwriting by default? |

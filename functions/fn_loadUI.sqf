@@ -12,7 +12,15 @@ switch (_mode) do {
     createDialog "GRAD_leaveNotes_write";
     _dialog = findDisplay LN_DIALOG;
     _notepad = _dialog displayCtrl LN_NOTEPAD;
+    _editBox = _dialog displayCtrl LN_EDITBOX;
+
     _notepad ctrlSetText (GRAD_leaveNotes_moduleRoot + "\data\notepad.paa");
+
+    if (GRAD_leaveNotes_visibleHandwriting) then {
+        _handwriting = player getVariable ["GRAD_leaveNotes_handwriting", ["",["","TahomaB"]]];
+        _handwriting params ["_modifier", "_type"];
+        _editBox ctrlSetFont (_type select 1);
+    };
   };
 
   case "READ": {
@@ -37,6 +45,11 @@ switch (_mode) do {
 
     if !(player getVariable ["GRAD_leaveNotes_canInspect", GRAD_leaveNotes_canInspectDefault]) then {
         _button3 ctrlShow false;
+    };
+
+    if (GRAD_leaveNotes_visibleHandwriting) then {
+        _handwriting params ["_modifier", "_type"];
+        _textBox ctrlSetFont (_type select 1);
     };
 
     _textBox ctrlSetText _message;
