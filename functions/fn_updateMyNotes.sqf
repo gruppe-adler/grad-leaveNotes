@@ -61,6 +61,6 @@ if (_mode == "add") then {
 
     //inspect
     _inspectactionName = _nodeName + "_inspect";
-    _action = [_inspectactionName, "Inspect Note", GRAD_leaveNotes_moduleRoot + "\data\inspect.paa", {(_this select 2) call GRAD_leaveNotes_fnc_inspectNote}, {true}, {}, [_handwriting]] call ace_interact_menu_fnc_createAction;
+    _action = [_inspectactionName, "Inspect Note", GRAD_leaveNotes_moduleRoot + "\data\inspect.paa", {(_this select 2) call GRAD_leaveNotes_fnc_inspectNote}, {player getVariable ["GRAD_leaveNotes_canInspect", GRAD_leaveNotes_canInspectDefault]}, {}, [_handwriting]] call ace_interact_menu_fnc_createAction;
     [player, 1, ["ACE_SelfActions", "ACE_Equipment", "GRAD_leaveNotes_mainAction", _nodeName], _action] call ace_interact_menu_fnc_addActionToObject;
 };

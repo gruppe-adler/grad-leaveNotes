@@ -47,13 +47,22 @@ class CfgSounds {
 ## Usage
 Using the notes system is fairly intuitive. Open up your ACE selfinteraction menu, go to "Equipment", "Notes" and choose "Write Note". A notepad will open up. Write whatever you like, then hit "SAVE" to put the note into your virtual inventory or hit "DROP" to place it on the ground. Use your ACE interaction key to read, pick up or destroy notes on the ground. Use your selfinteraction menu and go to "Equipment", "Notes" again to read, drop or destroy notes in your virtual inventory.
 
-Put this into a player's init box to enable or disable him to write notes (default is true):  
-`[this, true/false] call GRAD_leaveNotes_fnc_allowWriting;`
+Use this function to enable/disable a unit to write notes (default is true):  
+`[unit, allow] call GRAD_leaveNotes_fnc_allowWriting;`
 
-Put this into a player's init box to set how many notes he can write (default is 10):  
-`[this, AMOUNTOFNOTES] call GRAD_leaveNotes_fnc_setAmount;`
+Use this function to enable/disable a unit to inspect notes (default is true):  
+`[unit, allow] call GRAD_leaveNotes_fnc_allowInspection;`
 
-Both of these functions can also be called on the server or the player.
+Use this function to set how many notes a unit can write (default is 10):  
+`[unit, amount] call GRAD_leaveNotes_fnc_setAmount;`
+
+All of these function have to be called either on server or or client where unit is local.
+
+| Parameter | Type | Explanation |
+| ----------|------|-------------|
+| unit      | object | The unit this applies to |
+| allow     | bool   | Enable or disable this ability |
+| amount    | number | Amount of notes this unit can write. (Does not add to remaining amount.) |
 
 
 ## Configuration
@@ -64,6 +73,7 @@ Add the class `GRAD_leaveNotes` to your `description.ext`, then add any of these
 | Attribute       | Default Value    | Explanation                                                 |
 |-----------------|------------------|-------------------------------------------------------------|
 | canWriteDefault | 1                | (1/0) Can everyone write notes by default?                  |
+| canInspectDefault | 1              | (1/0) Can everyone inspect a note's handwriting by default? |
 | startAmount     | 10               | (Number) How many notes a player can write by default.      |
 | noteObject      | "Land_Notepad_F" | (String) Note object class name.                            |
 | actOffset[]     | {0,0,0.1}        | (Array) Note object interaction point offset.               |

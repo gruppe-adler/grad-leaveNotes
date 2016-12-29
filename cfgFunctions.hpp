@@ -7,6 +7,8 @@ class GRAD_leaveNotes {
         file = MODULES_DIRECTORY\grad-leaveNotes\functions;
 
         class addSelfinteraction {};
+        class allowInspection {};
+        class allowWriting {};
         class delayedCall {};
         class destroyNote {};
         class dropNote {};

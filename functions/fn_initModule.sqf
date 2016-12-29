@@ -4,8 +4,9 @@ GRAD_leaveNotes_playerDistance = [missionConfigFile >> "GRAD_leaveNotes" >> "pla
 GRAD_leaveNotes_actOffset = [missionConfigFile >> "GRAD_leaveNotes" >> "actOffset", "array", [0,0,0.1]] call CBA_fnc_getConfigEntry;
 GRAD_leaveNotes_actDist = [missionConfigFile >> "GRAD_leaveNotes" >> "actDist", "number", 2] call CBA_fnc_getConfigEntry;
 GRAD_leaveNotes_noteObject = [missionConfigFile >> "GRAD_leaveNotes" >> "noteObject", "text", "Land_Notepad_F"] call CBA_fnc_getConfigEntry;
-GRAD_leaveNotes_canWriteDefault = ([missionConfigFile >> "GRAD_leaveNotes" >> "canWriteDefault", "number", 1] call CBA_fnc_getConfigEntry) == 1;
 GRAD_leaveNotes_startAmount = [missionConfigFile >> "GRAD_leaveNotes" >> "startAmount", "number", 10] call CBA_fnc_getConfigEntry;
+GRAD_leaveNotes_canWriteDefault = ([missionConfigFile >> "GRAD_leaveNotes" >> "canWriteDefault", "number", 1] call CBA_fnc_getConfigEntry) == 1;
+GRAD_leaveNotes_canInspectDefault = ([missionConfigFile >> "GRAD_leaveNotes" >> "canInspect", "number", 1] call CBA_fnc_getConfigEntry) == 1;
 
 GRAD_leaveNotes_interactionSleepTime = 0.1;
 
