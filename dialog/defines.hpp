@@ -5,8 +5,9 @@
 #define LN_CLOSEBUTTON      6030
 #define LN_BUTTON1          6100
 #define LN_BUTTON2          6200
-#define LN_EDITBOX          6300
-#define LN_TEXTBOX          6400
+#define LN_BUTTON3          6300
+#define LN_EDITBOX          6400
+#define LN_TEXTBOX          6500
 
 //COORDS AND DIMENSIONS ========================================================
 #define lnButton_textSize   (0.04 * TEXT_SCALE)

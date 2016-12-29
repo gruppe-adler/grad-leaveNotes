@@ -13,7 +13,6 @@ class GRAD_leaveNotes {
         class destroyNote {};
         class dropNote {};
         class enterHint {};
-        class allowWriting {};
         class generateName {};
         class getModuleRoot {};
         class giveNote {};

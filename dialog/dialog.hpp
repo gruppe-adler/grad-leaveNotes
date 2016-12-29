@@ -73,6 +73,16 @@ class GRAD_leaveNotes_UI
             w = lnButton_W;
             h = lnButton_H;
         };
+
+        class Button3: GRAD_leaveNotes_RscButton
+        {
+            idc = LN_BUTTON3;
+
+            x = (lnTotal_X + lnTotal_W) - (3*lnButton_W + 3*lnSpacing_X);
+            y = (lnTotal_Y + lnTotal_H) - (lnSpacing_Y + lnButton_H);
+            w = lnButton_W;
+            h = lnButton_H;
+        };
     };
 };
 
@@ -153,6 +163,11 @@ class GRAD_leaveNotes_read: GRAD_leaveNotes_UI
         class Button2: Button2 {
             text = "DROP";
             action = "[] call GRAD_leaveNotes_fnc_uiTakeDrop; closeDialog 0";
+        };
+
+        class Button3: Button3 {
+            text = "INSPECT";
+            action = "[] call GRAD_leaveNotes_fnc_inspectNote";
         };
     };
 };

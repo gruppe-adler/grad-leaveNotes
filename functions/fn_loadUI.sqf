@@ -22,6 +22,7 @@ switch (_mode) do {
     _notepad ctrlSetText (GRAD_leaveNotes_moduleRoot + "\data\notepad.paa");
     _textBox = _dialog displayCtrl LN_TEXTBOX;
     _button2 = _dialog displayCtrl LN_BUTTON2;
+    _button3 = _dialog displayCtrl LN_BUTTON3;
     //_message = "";
     //_note = player getVariable ["GRAD_leaveNotes_activeNote", objNull];
 
@@ -32,6 +33,10 @@ switch (_mode) do {
     if (typeName _note == "SCALAR") then {
         _nodeName = format ["GRAD_leaveNotes_myNotes_%1", _note];
         _button2 ctrlSetText "DROP";
+    };
+
+    if !(player getVariable ["GRAD_leaveNotes_canInspect", GRAD_leaveNotes_canInspectDefault]) then {
+        _button3 ctrlShow false;
     };
 
     _textBox ctrlSetText _message;
