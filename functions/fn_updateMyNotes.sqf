@@ -9,14 +9,12 @@ if (_mode == "remove") then {
     _readactionName = _nodeName + "_read";
     _dropactionName = _nodeName + "_drop";
     _destroyactionName = _nodeName + "_destroy";
-    _inspectactionName = _nodeName + "_inspect";
     _giveactionName = _nodeName + "_give";
 
     //self interactions
     [player,1,["ACE_SelfActions", "ACE_Equipment", "GRAD_leaveNotes_mainAction", _nodeName, _readactionName]] call ace_interact_menu_fnc_removeActionFromObject;
     [player,1,["ACE_SelfActions", "ACE_Equipment", "GRAD_leaveNotes_mainAction", _nodeName, _dropactionName]] call ace_interact_menu_fnc_removeActionFromObject;
     [player,1,["ACE_SelfActions", "ACE_Equipment", "GRAD_leaveNotes_mainAction", _nodeName, _destroyactionName]] call ace_interact_menu_fnc_removeActionFromObject;
-    [player,1,["ACE_SelfActions", "ACE_Equipment", "GRAD_leaveNotes_mainAction", _nodeName, _inspectactionName]] call ace_interact_menu_fnc_removeActionFromObject;
     [player,1,["ACE_SelfActions", "ACE_Equipment", "GRAD_leaveNotes_mainAction", _nodeName]] call ace_interact_menu_fnc_removeActionFromObject;
 
     //give interaction
@@ -58,9 +56,4 @@ if (_mode == "add") then {
     _giveactionName = _nodeName + "_give";
     _action = [_giveactionName, _actionDisplayText, GRAD_leaveNotes_moduleRoot + "\data\note.paa", {_this call GRAD_leaveNotes_fnc_giveNote}, {true}, {}, [_noteID, _message, _handwriting]] call ace_interact_menu_fnc_createAction;
     ["CAManBase",0,["ACE_MainActions","GRAD_leaveNotes_mainGiveAction"],_action,true] call ace_interact_menu_fnc_addActionToClass;
-
-    //inspect
-    _inspectactionName = _nodeName + "_inspect";
-    _action = [_inspectactionName, "Inspect Note", GRAD_leaveNotes_moduleRoot + "\data\inspect.paa", {(_this select 2) call GRAD_leaveNotes_fnc_inspectNote}, {player getVariable ["GRAD_leaveNotes_canInspect", GRAD_leaveNotes_canInspectDefault]}, {}, [_handwriting]] call ace_interact_menu_fnc_createAction;
-    [player, 1, ["ACE_SelfActions", "ACE_Equipment", "GRAD_leaveNotes_mainAction", _nodeName], _action] call ace_interact_menu_fnc_addActionToObject;
 };
