@@ -3,8 +3,8 @@
 #endif
 
 #define SOUNDPATH(var1,var2) ##var1##\##var2
-#define VOLUME 0.7
-#define DISTANCE 10
+#define VOLUME 0.9
+#define DISTANCE 15
 
 class GRAD_leaveNotes_sounds_rip1
 {
