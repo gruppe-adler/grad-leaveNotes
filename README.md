@@ -26,7 +26,7 @@ GRAD LeaveNotes is multiplayer and JIP proof.
 ### Via `npm`
 _for details about what npm is and how to use it, look it up on [npmjs.com](https://www.npmjs.com/)_
 
-1. Install package `grad-leaveNotes` : `npm install --save grad-listbuymenu`
+1. Install package `grad-leaveNotes` : `npm install --save grad-leaveNotes`
 2. Prepend your mission's `description.ext` with `#define MODULES_DIRECTORY node_modules`
 3. Append the following lines of code to the `description.ext`:
 
@@ -80,3 +80,18 @@ Add the class `GRAD_leaveNotes` to your `description.ext`, then add any of these
 | visibleHandwriting | 1             | (1/0) is a player's handwriting represented by a specific font? |
 | canWriteDefault | 1                | (1/0) Can everyone write notes by default?                  |
 | canInspectDefault | 1              | (1/0) Can everyone inspect a note's handwriting by default? |
+
+Example:
+
+```sqf
+class GRAD_leaveNotes {
+    playerDistance = 1;             
+    actOffset[] = {0,0,0.1};        
+    actDist = 2;                    
+    noteObject = "Land_Notepad_F";  
+    startAmount = 10;               
+    visibleHandwriting = 1;         
+    canWriteDefault = 1;            
+    canInspectDefault = 1;          
+};
+```
