@@ -5,6 +5,7 @@
   * place notes on the ground
   * store notes in your (virtual) inventory (ACE-Selfinteraction)
   * read notes
+  * inspect a notes handwriting
   * destroy notes
 
 GRAD LeaveNotes is multiplayer and JIP proof.
@@ -95,3 +96,12 @@ class GRAD_leaveNotes {
     canInspectDefault = 1;          
 };
 ```
+
+## Handwriting
+A few words on handwriting:
+
+By default, a note's handwriting is represented by one of 9 fonts. So most of the times you will know that two notes are from two different authors simply by looking at them. However if two notes *do* seem to have the same handwriting, only inspecting them will tell you more.
+
+Each font has an adjective that it is described by. For example: "EtelkaMonospacePro" will show up as "elegant" handwriting upon inspection. Every handwriting also has one of three modifiers, "somewhat", "quite", and "remarkably". So if two notes have the same font but show up as "quite elegant" and "somewhat elegant", they must have been written by different authors.
+
+9 adjevtives and 3 modifiers give us a total of 27 different handwritings. So depending on number of players, two or more people in your game might have the same.
