@@ -1,12 +1,12 @@
 # GRAD LeaveNotes
 
-* Enables you to:
-  * write notes (ACE-Selfinteraction)
-  * place notes on the ground
-  * store notes in your (virtual) inventory (ACE-Selfinteraction)
-  * read notes
-  * inspect a notes handwriting
-  * destroy notes
+Enables you to:
+* write notes (ACE-Selfinteraction)
+* place notes on the ground
+* store notes in your (virtual) inventory (ACE-Selfinteraction)
+* read notes
+* inspect a notes handwriting
+* destroy notes
 
 GRAD LeaveNotes is multiplayer and JIP proof.
 
