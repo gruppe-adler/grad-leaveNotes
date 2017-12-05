@@ -1,5 +1,5 @@
 #ifndef MODULES_DIRECTORY
-    #define MODULES_DIRECTORY modules
+    #define MODULES_DIRECTORY node_modules
 #endif
 
 #define SOUNDPATH(var1,var2) ##var1##\##var2
