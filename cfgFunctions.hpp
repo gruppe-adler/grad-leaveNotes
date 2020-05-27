@@ -34,12 +34,3 @@ class GRAD_leaveNotes {
         class writeNote {};
     };
 };
-
-class FAKEACE_interact_menu {
-    class ace_removeActionFromClass_Workaround {
-        file = MODULES_DIRECTORY\grad-leaveNotes\functions\ace_removeActionFromClass_workaround;
-        class findActionName {};
-        class getAllClasses {};
-        class removeActionFromClass {};
-    };
-};

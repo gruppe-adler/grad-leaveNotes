@@ -17,7 +17,7 @@ _enterHint = [] spawn {
 
     _red = [0.9,0.13,0.13,1];
 
-    player say "HintCollapse";
+    ACE_player say "HintCollapse";
     _closeButton ctrlShow false;
     _title ctrlSetText "SHIFT + ENTER FOR NEW LINE";
 

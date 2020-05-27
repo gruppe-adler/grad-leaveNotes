@@ -9,12 +9,12 @@ if (isNil "_handwriting") then {
         };
 
         case ("SCALAR"): {
-            _nodeName = format ["GRAD_leaveNotes_myNotes_%1", _note];
-            _handwriting = player getVariable [_nodeName + "_handwriting", ["",["",""]]];
+            private _unitNotesArray = ACE_player getVariable ["grad_leaveNotes_notesArray",[]];
+            _handwriting = (_unitNotesArray param [_note,["",["",["",""]]]]) param [1,["",["",""]]];
         };
 
         default {
-            _handwriting = ["",""];
+            _handwriting = ["",["",""]];
         };
     };
 };
@@ -22,14 +22,13 @@ if (isNil "_handwriting") then {
 _handwriting params ["_modifier", "_type"];
 _type params ["_descriptor", "_font"];
 
-_texts = [
+private _texts = [
     "The handwriting on this note is %1 %2.",
     "The author of this note has %1 %2 handwriting.",
     "The letters on this note are %1 %2."
 ];
 
-
-_myHandwriting = player getVariable ["GRAD_leaveNotes_handwriting",["",["",""]]];
+private _myHandwriting = ACE_player getVariable ["GRAD_leaveNotes_handwriting",["",["",""]]];
 _myHandwriting params ["_myModifier", "_myType"];
 _myType params ["_myDescriptor", "_myFont"];
 
