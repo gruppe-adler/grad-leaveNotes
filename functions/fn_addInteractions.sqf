@@ -1,7 +1,7 @@
 //add main selfinteraction node
 private _mainCondition = {
     params ["",["_unit",objNull]];
-    (_unit getVariable ["GRAD_leaveNotes_notesInInventory", 0]) > 0 ||
+    ({!isNil "_x"} count (_unit getVariable ["grad_leaveNotes_notesArray", []])) > 0 ||
     {_unit getVariable ["GRAD_leaveNotes_canWriteNotes", GRAD_leaveNotes_canWriteDefault]}
 };
 private _mainAction = ["GRAD_leaveNotes_mainAction","Notes",GRAD_leaveNotes_moduleRoot + "\data\note.paa",{},_mainCondition] call ace_interact_menu_fnc_createAction;
@@ -18,7 +18,7 @@ private _writeAction = ["GRAD_leaveNotes_writeNote", "Write Note", GRAD_leaveNot
 // add give action
 private _giveCondition = {
     params ["",["_unit",objNull]];
-    (_unit getVariable ["GRAD_leaveNotes_notesInInventory", 0]) > 0
+    ({!isNil "_x"} count (_unit getVariable ["grad_leaveNotes_notesArray", []])) > 0
 };
 private _giveAction = ["GRAD_leaveNotes_mainGiveAction","Give note",GRAD_leaveNotes_moduleRoot + "\data\give.paa",{},_giveCondition] call ace_interact_menu_fnc_createAction;
 ["CAManBase",0,["ACE_MainActions"],_giveAction,true] call ace_interact_menu_fnc_addActionToClass;

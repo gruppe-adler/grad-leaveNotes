@@ -9,7 +9,7 @@ if (typeName _note == "OBJECT") then {
 
 //inventory note
 if (_note isEqualType 0) then {
-    [_note, "remove"] call GRAD_leaveNotes_fnc_updateMyNotes;
+    [_note,"remove"] call GRAD_leaveNotes_fnc_updateMyNotes;
 };
 
 if (!_silent) then {

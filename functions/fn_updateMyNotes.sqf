@@ -1,36 +1,38 @@
 if (!hasInterface) exitWith {};
 params ["_noteID", "_mode", ["_message", ""], ["_handwriting", ["",["",""]]]];
 
+if (isNil {ACE_player getVariable "grad_leaveNotes_notesArray"}) then {ACE_player setVariable ["grad_leaveNotes_notesArray",[],true]};
+private _unitNotesArray = ACE_player getVariable ["grad_leaveNotes_notesArray",[]];
+
 //remove note
 if (_mode == "remove") then {
-    player setVariable ["GRAD_leaveNotes_notesInInventory", (player getVariable ["GRAD_leaveNotes_notesInInventory", 1]) - 1];
+    _unitNotesArray set [_noteID,nil];
+    ACE_player setVariable ["grad_leaveNotes_notesArray",_unitNotesArray,true];
 
-    _nodeName = format ["GRAD_leaveNotes_myNotes_%1", _noteID];
+    /* _nodeName = format ["GRAD_leaveNotes_myNotes_%1", _noteID];
     _readactionName = _nodeName + "_read";
     _dropactionName = _nodeName + "_drop";
     _destroyactionName = _nodeName + "_destroy";
-    _giveactionName = _nodeName + "_give";
+    _giveactionName = _nodeName + "_give"; */
 
     //self interactions
-    [player,1,["ACE_SelfActions", "ACE_Equipment", "GRAD_leaveNotes_mainAction", _nodeName, _readactionName]] call ace_interact_menu_fnc_removeActionFromObject;
-    [player,1,["ACE_SelfActions", "ACE_Equipment", "GRAD_leaveNotes_mainAction", _nodeName, _dropactionName]] call ace_interact_menu_fnc_removeActionFromObject;
-    [player,1,["ACE_SelfActions", "ACE_Equipment", "GRAD_leaveNotes_mainAction", _nodeName, _destroyactionName]] call ace_interact_menu_fnc_removeActionFromObject;
-    [player,1,["ACE_SelfActions", "ACE_Equipment", "GRAD_leaveNotes_mainAction", _nodeName]] call ace_interact_menu_fnc_removeActionFromObject;
+    /* [player,1,["ACE_SelfActions", "ACE_Equipment", "GRAD_leaveNotes_mainAction", _nodeName, _readactionName]] call ace_interact_menu_fnc_removeActionFromObject; */
+    /* [player,1,["ACE_SelfActions", "ACE_Equipment", "GRAD_leaveNotes_mainAction", _nodeName, _dropactionName]] call ace_interact_menu_fnc_removeActionFromObject; */
+    /* [player,1,["ACE_SelfActions", "ACE_Equipment", "GRAD_leaveNotes_mainAction", _nodeName, _destroyactionName]] call ace_interact_menu_fnc_removeActionFromObject; */
+    /* [player,1,["ACE_SelfActions", "ACE_Equipment", "GRAD_leaveNotes_mainAction", _nodeName]] call ace_interact_menu_fnc_removeActionFromObject; */
 
     //give interaction
-    [0,["ACE_MainActions", "GRAD_leaveNotes_mainGiveAction", _giveactionName]] call FAKEACE_interact_menu_fnc_removeActionFromClass;
+    /* [0,["ACE_MainActions", "GRAD_leaveNotes_mainGiveAction", _giveactionName]] call FAKEACE_interact_menu_fnc_removeActionFromClass; */
     /*["CAManBase",0,["ACE_MainActions", "GRAD_leaveNotes_mainGiveAction", _giveactionName]] call ace_interact_menu_fnc_removeActionFromClass;*/
 };
 
 //add note
 if (_mode == "add") then {
-    player setVariable ["GRAD_leaveNotes_notesHandled", (player getVariable ["GRAD_leaveNotes_notesHandled", 0]) + 1];
-    player setVariable ["GRAD_leaveNotes_notesInInventory", (player getVariable ["GRAD_leaveNotes_notesInInventory", 0]) + 1];
-    _nodeName = format ["GRAD_leaveNotes_myNotes_%1", _noteID];
-    player setVariable [_nodeName + "_message", _message];
-    player setVariable [_nodeName + "_handwriting", _handwriting];
 
-    //node
+    _unitNotesArray pushBack [_message,_handwriting];
+    ACE_player setVariable ["grad_leaveNotes_notesArray",_unitNotesArray,true];
+
+    /* //node
     _actionDisplayText = [_message] call GRAD_leaveNotes_fnc_generateName;
     _action = [_nodeName, _actionDisplayText, GRAD_leaveNotes_moduleRoot + "\data\note.paa", {true}, {true}] call ace_interact_menu_fnc_createAction;
     [player, 1, ["ACE_SelfActions", "ACE_Equipment", "GRAD_leaveNotes_mainAction"], _action] call ace_interact_menu_fnc_addActionToObject;
@@ -55,5 +57,5 @@ if (_mode == "add") then {
     //give
     _giveactionName = _nodeName + "_give";
     _action = [_giveactionName, _actionDisplayText, GRAD_leaveNotes_moduleRoot + "\data\note.paa", {_this call GRAD_leaveNotes_fnc_giveNote}, {true}, {}, [_noteID, _message, _handwriting]] call ace_interact_menu_fnc_createAction;
-    ["CAManBase",0,["ACE_MainActions","GRAD_leaveNotes_mainGiveAction"],_action,true] call ace_interact_menu_fnc_addActionToClass;
+    ["CAManBase",0,["ACE_MainActions","GRAD_leaveNotes_mainGiveAction"],_action,true] call ace_interact_menu_fnc_addActionToClass; */
 };
