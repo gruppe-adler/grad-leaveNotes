@@ -38,7 +38,7 @@ if (_mode == "add") then {
     //read
     _readactionName = _nodeName + "_read";
     _readAction = {(_this select 2) call GRAD_leaveNotes_fnc_delayedCall};
-    _action = [_readactionName, "Read Note", GRAD_leaveNotes_moduleRoot + "\data\read.paa", _readAction, {true}, {}, [[_message, _noteID, _handwriting],GRAD_leaveNotes_fnc_readNote]] call ace_interact_menu_fnc_createAction;
+    _action = [_readactionName, "Read Note", GRAD_leaveNotes_moduleRoot + "\data\read.paa", _readAction, {true}, {}, [[_message, _noteID, _handwriting, ACE_player],GRAD_leaveNotes_fnc_readNote]] call ace_interact_menu_fnc_createAction;
     [player, 1, ["ACE_SelfActions", "ACE_Equipment", "GRAD_leaveNotes_mainAction", _nodeName], _action] call ace_interact_menu_fnc_addActionToObject;
 
     //drop

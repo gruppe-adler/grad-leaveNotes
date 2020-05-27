@@ -8,16 +8,15 @@ if (typeName _note == "OBJECT") then {
 };
 
 //inventory note
-if (typeName _note == "SCALAR") then {
+if (_note isEqualType 0) then {
     [_note, "remove"] call GRAD_leaveNotes_fnc_updateMyNotes;
 };
 
 if (!_silent) then {
-    _sounds = [
+    [ACE_player, selectRandom [
         "GRAD_leaveNotes_sounds_rip1",
         "GRAD_leaveNotes_sounds_rip2",
         "GRAD_leaveNotes_sounds_rip3",
         "GRAD_leaveNotes_sounds_rip4"
-    ];
-    [ACE_player, selectRandom _sounds] remoteExec ["say3D", 0, false];
+    ]] remoteExec ["say3D", 0, false];
 };

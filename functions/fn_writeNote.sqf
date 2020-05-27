@@ -7,4 +7,4 @@ if (isNil {_unit getVariable "GRAD_leaveNotes_handwriting"}) then {
     [_unit] call GRAD_leaveNotes_fnc_setHandwriting;
 };
 
-["WRITE"] call GRAD_leaveNotes_fnc_loadUI;
+["WRITE",nil,nil,nil,_unit] call GRAD_leaveNotes_fnc_loadUI;

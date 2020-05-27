@@ -2,7 +2,7 @@
 #define COMPONENT leaveNotes
 #include "\x\cba\addons\main\script_macros_mission.hpp"
 
-params ["_message", "_note", ["_handwriting", ["",["",""]]]];
+params ["_message","_note",["_handwriting", ["",["",""]]],["_unit",objNull]];
 private ["_message"];
 
 if (isNil "_note") exitWith {ERROR("_note is nil.")};
@@ -14,4 +14,4 @@ if (typeName _note == "OBJECT") then {
 
 ACE_player setVariable ["GRAD_leaveNotes_activeNote", _note];
 
-["READ", _note, _message, _handwriting] call GRAD_leaveNotes_fnc_loadUI;
+["READ",_note,_message,_handwriting,_unit] call GRAD_leaveNotes_fnc_loadUI;

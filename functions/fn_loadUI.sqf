@@ -3,7 +3,7 @@
 #include "\x\cba\addons\main\script_macros_mission.hpp"
 #include "..\dialog\defines.hpp"
 
-params [["_mode", "UNDEFINED"],"_note","_message","_handwriting"];
+params [["_mode", "UNDEFINED"],"_note","_message","_handwriting","_unit"];
 
 disableSerialization;
 
@@ -17,7 +17,7 @@ switch (_mode) do {
     _notepad ctrlSetText (GRAD_leaveNotes_moduleRoot + "\data\notepad.paa");
 
     if (GRAD_leaveNotes_visibleHandwriting) then {
-        _handwriting = player getVariable ["GRAD_leaveNotes_handwriting", ["",["","TahomaB"]]];
+        _handwriting = _unit getVariable ["GRAD_leaveNotes_handwriting", ["",["","TahomaB"]]];
         _handwriting params ["_modifier", "_type"];
         _editBox ctrlSetFont (_type select 1);
     };
@@ -32,7 +32,7 @@ switch (_mode) do {
     _button2 = _dialog displayCtrl LN_BUTTON2;
     _button3 = _dialog displayCtrl LN_BUTTON3;
     //_message = "";
-    //_note = ACE_player getVariable ["GRAD_leaveNotes_activeNote", objNull];
+    //_note = _unit getVariable ["GRAD_leaveNotes_activeNote", objNull];
 
     if (typeName _note == "OBJECT") then {
         _button2 ctrlSetText "TAKE";
@@ -43,7 +43,7 @@ switch (_mode) do {
         _button2 ctrlSetText "DROP";
     };
 
-    if !(player getVariable ["GRAD_leaveNotes_canInspect", GRAD_leaveNotes_canInspectDefault]) then {
+    if !(_unit getVariable ["GRAD_leaveNotes_canInspect", GRAD_leaveNotes_canInspectDefault]) then {
         _button3 ctrlShow false;
     };
 
