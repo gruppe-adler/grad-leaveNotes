@@ -11,8 +11,6 @@ GRAD_leaveNotes_canInspectDefault = ([missionConfigFile >> "GRAD_leaveNotes" >> 
 
 GRAD_leaveNotes_interactionSleepTime = 0.1;
 
-GRAD_leaveNotes_inheritFromCAManBase = ("configName _x isKindOf 'Car'" configClasses (configFile / "CfgVehicles")) apply {configName _x};
-
 if (!hasInterface) exitWith {};
 
 //set start amount
