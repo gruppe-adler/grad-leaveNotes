@@ -1,25 +1,40 @@
-params ["_unit"];
+params ["_unit","_modifier","_type"];
 
 if (!isServer && !local _unit) exitWith {};
 
-_types = [
-    ["small","PuristaLight"],
-    ["fine","PuristaMedium"],
-    ["sloppy","PuristaSemiBold"],
-    ["messy","PuristaBold"],
-    ["angular","LucidaConsoleB"],
-    ["elegant","EtelkaMonospacePro"],
-    ["meticulous","EtelkaMonospaceProBold"],
-    ["cramped","EtelkaNarrowMediumPro"],
-    ["bold","TahomaB"]
-];
+if (isNil "_modifier") then {
+    _modifier = selectRandom [
+        "somewhat",
+        "quite",
+        "remarkably"
+    ];
+};
 
-_modifiers = [
-    "somewhat",
-    "quite",
-    "remarkably"
-];
+if (isNil "_type") then {
+    _type = selectRandom [
+        "small",
+        "fine",
+        "sloppy",
+        "messy",
+        "angular",
+        "elegant",
+        "meticulous",
+        "cramped",
+        "bold"
+    ];
+};
 
+private _font = switch (_type) do {
+    case ("small"): {"PuristaLight"};
+    case ("fine"): {"PuristaMedium"};
+    case ("sloppy"): {"PuristaSemiBold"};
+    case ("messy"): {"PuristaBold"};
+    case ("angular"): {"LucidaConsoleB"};
+    case ("elegant"): {"EtelkaMonospacePro"};
+    case ("meticulous"): {"EtelkaMonospaceProBold"};
+    case ("cramped"): {"EtelkaNarrowMediumPro"};
+    case ("bold"): {"TahomaB"};
+    default {"PuristaLight"};
+};
 
-_handwriting = [selectRandom _modifiers, selectRandom _types];
-_unit setVariable ["GRAD_leaveNotes_handwriting", _handwriting, true];
+_unit setVariable ["GRAD_leaveNotes_handwriting",[_modifier,[_type,_font]],true];

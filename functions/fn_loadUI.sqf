@@ -32,7 +32,7 @@ switch (_mode) do {
     _button2 = _dialog displayCtrl LN_BUTTON2;
     _button3 = _dialog displayCtrl LN_BUTTON3;
     //_message = "";
-    //_note = player getVariable ["GRAD_leaveNotes_activeNote", objNull];
+    //_note = ACE_player getVariable ["GRAD_leaveNotes_activeNote", objNull];
 
     if (typeName _note == "OBJECT") then {
         _button2 ctrlSetText "TAKE";

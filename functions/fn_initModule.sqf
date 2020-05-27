@@ -13,17 +13,13 @@ GRAD_leaveNotes_interactionSleepTime = 0.1;
 
 if (!hasInterface) exitWith {};
 
-//set start amount
-_startAmount = player getVariable "GRAD_leaveNotes_amount";
-if (isNil "_startAmount") then {player setVariable ["GRAD_leaveNotes_amount", GRAD_leaveNotes_startAmount]};
+[] call GRAD_leaveNotes_fnc_addInteractions;
 
-//set handwriting
-[player] call GRAD_leaveNotes_fnc_setHandwriting;
-
-//add interaction nodes
-[{!isNull player}, {
-    [] call GRAD_leaveNotes_fnc_addSelfinteraction;
-
-    _action = ["GRAD_leaveNotes_mainGiveAction", "Give note", GRAD_leaveNotes_moduleRoot + "\data\give.paa", {}, {(player getVariable ["GRAD_leaveNotes_notesInInventory", 0]) > 0}] call ace_interact_menu_fnc_createAction;
-    ["CAManBase",0,["ACE_MainActions"],_action,true] call ace_interact_menu_fnc_addActionToClass;
-}, []] call CBA_fnc_waitUntilAndExecute;
+[{!isNull player},{
+    if (isNil {player getVariable "GRAD_leaveNotes_amount"}) then {
+        player setVariable ["GRAD_leaveNotes_amount", GRAD_leaveNotes_startAmount]
+    };
+    if (isNil {player getVariable "GRAD_leaveNotes_handwriting"}) then {
+        [player] call GRAD_leaveNotes_fnc_setHandwriting;
+    };
+},[]] call CBA_fnc_waitUntilAndExecute;

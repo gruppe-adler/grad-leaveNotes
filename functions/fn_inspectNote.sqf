@@ -2,7 +2,7 @@ private ["_handwriting"];
 params ["_handwriting"];
 
 if (isNil "_handwriting") then {
-    _note = player getVariable ["GRAD_leaveNotes_activeNote", objNull];
+    _note = ACE_player getVariable ["GRAD_leaveNotes_activeNote", objNull];
     switch (typeName _note) do {
         case ("OBJECT"): {
             _handwriting = _note getVariable ["handwriting", ["",["",""]]];

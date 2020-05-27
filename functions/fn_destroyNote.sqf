@@ -1,5 +1,5 @@
 params ["_note",["_silent", false]];
-if (isNil "_note") then {_note = player getVariable ["GRAD_leaveNotes_activeNote", objNull]};
+if (isNil "_note") then {_note = ACE_player getVariable ["GRAD_leaveNotes_activeNote", objNull]};
 
 //ground note
 if (typeName _note == "OBJECT") then {
@@ -19,5 +19,5 @@ if (!_silent) then {
         "GRAD_leaveNotes_sounds_rip3",
         "GRAD_leaveNotes_sounds_rip4"
     ];
-    [player, selectRandom _sounds] remoteExec ["say3D", 0, false];
+    [ACE_player, selectRandom _sounds] remoteExec ["say3D", 0, false];
 };

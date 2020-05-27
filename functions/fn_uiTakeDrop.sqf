@@ -1,6 +1,6 @@
 #include "..\dialog\defines.hpp"
 
-_note = player getVariable ["GRAD_leaveNotes_activeNote", objNull];
+private _note = ACE_player getVariable ["GRAD_leaveNotes_activeNote", objNull];
 
 //take
 if (typeName _note == "OBJECT") then {

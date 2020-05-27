@@ -12,5 +12,6 @@ if (typeName _note == "OBJECT") then {
     _message = _note getVariable ["message", ""];
 };
 
-player setVariable ["GRAD_leaveNotes_activeNote", _note];
+ACE_player setVariable ["GRAD_leaveNotes_activeNote", _note];
+
 ["READ", _note, _message, _handwriting] call GRAD_leaveNotes_fnc_loadUI;

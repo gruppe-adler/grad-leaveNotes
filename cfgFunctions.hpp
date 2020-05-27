@@ -6,7 +6,7 @@ class GRAD_leaveNotes {
     class common {
         file = MODULES_DIRECTORY\grad-leaveNotes\functions;
 
-        class addSelfinteraction {};
+        class addInteractions {};
         class allowInspection {};
         class allowWriting {};
         class delayedCall {};
@@ -16,7 +16,7 @@ class GRAD_leaveNotes {
         class generateName {};
         class getModuleRoot {};
         class giveNote {};
-        class initModule {postInit = 1;};
+        class initModule {preInit = 1;};
         class initNote {};
         class inspectNote {};
         class loadUI {};
